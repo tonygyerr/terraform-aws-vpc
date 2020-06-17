@@ -1,0 +1,29 @@
+module "vpc" {
+  source                   = "git::https://innersource.accenture.com/scm/faecvtm/vpc.git"
+  module_config            = var.module_config
+  vpc_config               = var.vpc_config
+  cidr                     = var.vpc_cidr
+  azs                      = var.azs
+  vpc_id                   = module.vpc.vpc_id
+  vpn_config               = var.vpn_config
+  region                   = var.aws_region
+  environment              = var.environment
+  application              = var.application
+  enable_nat_gateway       = true
+  single_nat_gateway       = true
+  enable_vpn_gateway       = true
+  enable_s3_endpoint       = true
+  enable_dynamodb_endpoint = true
+  private_db_subnet_ids    = module.vpc.private_db_subnets
+  ecs01_subnet_pub         = var.ecs01_subnet_pub
+  ecs02_subnet_pub         = var.ecs02_subnet_pub
+  ecs03_subnet_pub         = var.ecs03_subnet_pub
+  ecs01_subnet_prv         = var.ecs01_subnet_prv
+  ecs02_subnet_prv         = var.ecs02_subnet_prv
+  ecs03_subnet_prv         = var.ecs03_subnet_prv
+  db01_subnet_prv          = var.db01_subnet_prv
+  db02_subnet_prv          = var.db02_subnet_prv
+  db03_subnet_prv          = var.db03_subnet_prv
+
+  extra_tags = var.extra_tags
+}

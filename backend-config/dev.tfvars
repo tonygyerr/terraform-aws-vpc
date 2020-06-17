@@ -1,0 +1,5 @@
+bucket         = "terraform-dev-bucket"
+key            = "dev/terraform/modules/vpc-terraform.tfstate"
+dynamodb_table = "terraform-dev-statelock"
+region         = "us-east-1"
+profile        = "iesawsna-sandbox"
