@@ -57,9 +57,8 @@ vip2adfs2aws aws-auth --user-enterprise-id <accenture user id> --user-email <use
 cd examples
 terraform init -backend-config ../backend-config/dev.tfvars
 terraform plan -var-file="../env-config/dev.tfvars"
-terraform plan -refresh=true -var-file="env-config/dev.tfvars"
-terraform apply -var-file="env-config/dev.tfvars" -auto-approve
-terraform destroy -var-file="env-config/dev.tfvars"
+terraform apply -var-file="../env-config/dev.tfvars" -auto-approve
+terraform destroy -var-file="../env-config/dev.tfvars"
 ```
 
 ## How to Run this Module using Makefile Process
