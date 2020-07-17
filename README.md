@@ -1,11 +1,4 @@
-## Prerequisites
-- install git
-- install terraform
-- AWS Key pair for Terraform provisioning or as required per EC2 Instance requirements
-- AWS s3 bucket for remote terraform state file (tfstate)
-- AWS Dynamo dB for tfstate table state lock 
-
-## VPC
+## Module VPC
 Terraform will be used to provision AWS infrastructure and resources for Web:
 - Customer Gateway
 - Egress
@@ -16,18 +9,6 @@ Terraform will be used to provision AWS infrastructure and resources for Web:
 - Security Group
 - Subnets
 - VPC
-
-
-```bash
-cd terraform
-terraform get
-terraform fmt
-terraform init -backend=true -var-file=env-config/dev.tfvars 
-terraform validate -var-file=env-config/dev.tfvars 
-terraform plan -var-file=env-config/dev.tfvars 
-terraform apply -var-file=env-config/dev.tfvars 
-terraform destroy -var-file=env-config/dev.tfvars 
-```
 
 ```hcl
 module "vpc" {
@@ -59,6 +40,35 @@ module "vpc" {
 
   extra_tags = var.extra_tags
 }
+```
+
+## Prerequisites
+- Docker (for using Docker Image of dependencies)
+- Git
+- Terraform
+- vip2adfs2aws, or aaca for authenticating against your AWS account.
+- AWS Key pair for Terraform provisioning.
+- AWS S3 bucket for remote terraform state file (tfstate)
+- AWS Dynamo Database for tfstate table state lock 
+
+## How to run this Module using Terraform Commands
+```bash
+vip2adfs2aws aws-auth --user-enterprise-id <accenture user id> --user-email <username.lastname@accenture.com> --user-aws-role-index 0 --aws-region <amazon region>
+cd examples
+terraform init -backend-config ../backend-config/dev.tfvars
+terraform plan -var-file="../env-config/dev.tfvars"
+terraform plan -refresh=true -var-file="env-config/dev.tfvars"
+terraform apply -var-file="env-config/dev.tfvars" -auto-approve
+terraform destroy -var-file="env-config/dev.tfvars"
+```
+
+## How to Run this Module using Makefile Process
+```bash
+make auth
+make get
+make init
+make plan
+make apply
 ```
 
 ## Requirements
