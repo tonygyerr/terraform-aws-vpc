@@ -19,14 +19,14 @@ Terraform will be used to provision AWS infrastructure and resources for Web:
 
 
 ```bash
-$ cd terraform
-$ terraform get
-$ terraform fmt
-$ terraform init -backend=true -var-file=env-config/dev.tfvars 
-$ terraform validate -var-file=env-config/dev.tfvars 
-$ terraform plan -var-file=env-config/dev.tfvars 
-$ terraform apply -var-file=env-config/dev.tfvars 
-$ terraform destroy -var-file=env-config/dev.tfvars 
+cd terraform
+terraform get
+terraform fmt
+terraform init -backend=true -var-file=env-config/dev.tfvars 
+terraform validate -var-file=env-config/dev.tfvars 
+terraform plan -var-file=env-config/dev.tfvars 
+terraform apply -var-file=env-config/dev.tfvars 
+terraform destroy -var-file=env-config/dev.tfvars 
 ```
 
 ```hcl
@@ -58,7 +58,8 @@ module "vpc" {
   db03_subnet_prv          = var.db03_subnet_prv
 
   extra_tags = var.extra_tags
-}```
+}
+```
 
 ## Requirements
 
