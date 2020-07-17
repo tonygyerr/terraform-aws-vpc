@@ -1,4 +1,4 @@
-bucket         = "terraform-dev-bucket"
+bucket         = "terraform-state-dev-bucket"
 key            = "dev/terraform/modules/vpc-terraform.tfstate"
 dynamodb_table = "terraform-dev-statelock"
 region         = "us-east-1"
