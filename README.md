@@ -12,7 +12,7 @@ Terraform will be used to provision AWS infrastructure and resources for Web:
 
 ```hcl
 module "vpc" {
-  source                   = "git::https://innersource.accenture.com/scm/faecvtm/vpc.git"
+  source                   = "git::ssh://git@github.com:tonygyerr/terraform-aws-vpc.git"
   module_config            = var.module_config
   vpc_config               = var.vpc_config
   cidr                     = var.vpc_cidr
@@ -46,15 +46,14 @@ module "vpc" {
 - Docker (for using Docker Image of dependencies)
 - Git
 - Terraform
-- vip2adfs2aws, or aaca for authenticating against your AWS account.
 - AWS Key pair for Terraform provisioning.
 - AWS S3 bucket for remote terraform state file (tfstate)
 - AWS Dynamo Database for tfstate table state lock 
 
 ## How to run this Module using Terraform Commands
 ```bash
-vip2adfs2aws aws-auth --user-enterprise-id <accenture user id> --user-email <username.lastname@accenture.com> --user-aws-role-index 0 --aws-region <amazon region>
 cd examples
+terraform get
 terraform init -backend-config ../backend-config/dev.tfvars
 terraform plan -var-file="../env-config/dev.tfvars"
 terraform apply -var-file="../env-config/dev.tfvars" -auto-approve
@@ -63,11 +62,9 @@ terraform destroy -var-file="../env-config/dev.tfvars"
 
 ## How to Run this Module using Makefile Process
 ```bash
-make auth
-make get
-make init
-make plan
-make apply
+plz run //:plan_exe dev us-east-1
+plz run //:apply_exe dev us-east-1
+plz run //:destroy_exe dev us-east-1
 ```
 
 ## Requirements
@@ -87,7 +84,7 @@ make apply
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| aabg\_tags | optional default tags | `map` | <pre>{<br>  "CostCenter": "N/A",<br>  "Name": "api",<br>  "Owner": "cloudops@energy.com",<br>  "env": "dev",<br>  "project": "aabg",<br>  "vpc": "api-east-vpc"<br>}</pre> | no |
+| app\_tags | optional default tags | `map` | <pre>{<br>  "CostCenter": "N/A",<br>  "Name": "api",<br>  "Owner": "cloudops@energy.com",<br>  "env": "dev",<br>  "project": "app",<br>  "vpc": "api-east-vpc"<br>}</pre> | no |
 | alb\_is\_internal | determines if the alb is internal or not | `string` | `"false"` | no |
 | ami\_packer\_ecs\_ec2\_id | energy AMI built by Packer from Amazon AMI ECS Optimized | `map` | <pre>{<br>  "us-east-1": "ami-04351e12",<br>  "us-west-2": "ami-11120768"<br>}</pre> | no |
 | amount\_private\_api\_subnets | n/a | `string` | `"3"` | no |
@@ -95,9 +92,9 @@ make apply
 | amount\_private\_lb\_subnets | n/a | `string` | `"3"` | no |
 | amount\_public\_api\_subnets | n/a | `string` | `"3"` | no |
 | api\_flavor | ecs instance type | `string` | `"r3.large"` | no |
-| api\_prv\_subnets | ecs private subnets for the vpc | `list` | <pre>[<br>  "10.0.0.48/28",<br>  "10.0.0.64/28",<br>  "10.0.0.80/28"<br>]</pre> | no |
+| api\_prv\_subnets | ecs private subnets for the vpc | `list` | <pre>[<br>  "",<br>  "",<br>  ""<br>]</pre> | no |
 | api\_prv\_tags | n/a | `map` | <pre>{<br>  "Name": "api-ecs-prv-1-subnet",<br>  "environment": "prd",<br>  "project": "api",<br>  "role": "ecs"<br>}</pre> | no |
-| api\_pub\_subnets | ecs public subnets for the vpc | `list` | <pre>[<br>  "10.0.0.0/28",<br>  "10.0.0.16/28",<br>  "10.0.0.32/28"<br>]</pre> | no |
+| api\_pub\_subnets | ecs public subnets for the vpc | `list` | <pre>[<br>  "",<br>  "",<br>  ""<br>]</pre> | no |
 | api\_pub\_tags | n/a | `map` | <pre>{<br>  "Name": "api-ecs-pub-1-subnet",<br>  "environment": "prd",<br>  "project": "api",<br>  "role": "ecs"<br>}</pre> | no |
 | api\_vpc\_flow\_log\_arn | api vpc flow log 'arn:aws:iam::123456789012:role/flowlogsRole' | `string` | `"arn:aws:iam::123456789012:role/flowlogsRole"` | no |
 | application | n/a | `string` | n/a | yes |
@@ -105,20 +102,20 @@ make apply
 | availability\_zone | n/a | `string` | `"us-east-1a"` | no |
 | availability\_zones | n/a | `string` | `"us-east-1a,us-east-1b,us-east-1d"` | no |
 | aws | (Required) AWS credentials | `map` | <pre>{<br>  "az_count": 3,<br>  "region": "us-east-1"<br>}</pre> | no |
-| aws\_account\_id | aws account id | `string` | `"123456789012"` | no |
+| aws\_account\_id | aws account id | `string` | `${key_users}` | no |
 | aws\_key\_name | aws key name | `string` | `"terraform"` | no |
 | aws\_region | ec2 region for the vpc | `string` | `"us-east-1"` | no |
 | azs | n/a | `list` | <pre>[<br>  "us-east-1a",<br>  "us-east-1b",<br>  "us-east-1d"<br>]</pre> | no |
-| base\_cidr | cidr for vpc | `string` | `"10.0.0.0/20"` | no |
-| base\_cidr\_prv | cidr for vpc | `string` | `"10.0.0.0/24"` | no |
-| base\_cidr\_pub | cidr for vpc | `string` | `"10.0.0.0/24"` | no |
-| base\_private\_api\_cidr | cidr for vpc | `string` | `"10.0.0.0/24"` | no |
-| bucket\_name | the name of the s3 bucket for terraform state file | `string` | `"aee-terraform-state-non-prd"` | no |
+| base\_cidr | cidr for vpc | `string` | `""` | no |
+| base\_cidr\_prv | cidr for vpc | `string` | `""` | no |
+| base\_cidr\_pub | cidr for vpc | `string` | `""` | no |
+| base\_private\_api\_cidr | cidr for vpc | `string` | `""` | no |
+| bucket\_name | the name of the s3 bucket for terraform state file | `string` | `"app-terraform-state-non-prd"` | no |
 | cgw\_id | (Optional) The ID of the VPN Customer Gateway to attach to this VPC | `string` | `"api-east-cgw"` | no |
-| cidr | cidr for vpc | `string` | `"10.0.0.0/24"` | no |
-| cidr\_ap | api vpc cidr for subnet | `string` | `"10.0.0.0/24"` | no |
-| cidr\_prv | vpc cidr for subnet | `string` | `"10.0.0.0/20"` | no |
-| cidr\_pub | vpc cidr for subnet | `string` | `"10.0.0.0/19"` | no |
+| cidr | cidr for vpc | `string` | `""` | no |
+| cidr\_ap | api vpc cidr for subnet | `string` | `""` | no |
+| cidr\_prv | vpc cidr for subnet | `string` | `""` | no |
+| cidr\_pub | vpc cidr for subnet | `string` | `""` | no |
 | cloud\_ts\_cidr | cidr for cloud terminial server | `list` | <pre>[<br>  ""<br>]</pre> | no |
 | container\_api\_config\_server | n/a | `string` | `"out-config-serv"` | no |
 | container\_api\_cust\_list | n/a | `string` | `"out-customer-list"` | no |
@@ -147,19 +144,19 @@ make apply
 | create\_vpc | specify to create vpc | `string` | `"true"` | no |
 | custdb\_port | n/a | `string` | `"3306"` | no |
 | custdb\_tags | n/a | `map` | <pre>{<br>  "Name": "api-custdb-prv-1-subnet",<br>  "environment": "prd",<br>  "project": "api",<br>  "role": "sql"<br>}</pre> | no |
-| db01\_prv\_subnet\_cidr | cidr for db01 aurora private subnet | `string` | `"10.0.0.96/28"` | no |
+| db01\_prv\_subnet\_cidr | cidr for db01 aurora private subnet | `string` | `""` | no |
 | db01\_subnet\_az | az for db01 private subnet | `string` | `"us-east-1a"` | no |
 | db01\_subnet\_prv | database 1 for api | `any` | n/a | yes |
 | db01\_subnet\_prv\_cidr | cidr for db 01 public subnet zone 1 | `string` | `""` | no |
-| db02\_prv\_subnet\_cidr | cidr for db02 aurora private subnet | `string` | `"10.0.0.112/28"` | no |
+| db02\_prv\_subnet\_cidr | cidr for db02 aurora private subnet | `string` | `""` | no |
 | db02\_subnet\_az | az for db02 private subnet | `string` | `"us-east-1b"` | no |
 | db02\_subnet\_prv | database 2 for api | `any` | n/a | yes |
 | db02\_subnet\_prv\_cidr | cidr for db 02 public subnet zone 2 | `string` | `""` | no |
-| db03\_prv\_subnet\_cidr | cidr for db03 aurora database private subnet | `string` | `"10.0.0.128/28"` | no |
+| db03\_prv\_subnet\_cidr | cidr for db03 aurora database private subnet | `string` | `""` | no |
 | db03\_subnet\_az | az for db03 private subnet 5 | `string` | `"us-east-1d"` | no |
 | db03\_subnet\_prv | database 3 for api | `any` | n/a | yes |
 | db03\_subnet\_prv\_cidr | cidr for db 03 public subnet zone 3 | `string` | `""` | no |
-| db\_prv\_subnets | database private subnets for the vpc | `list` | <pre>[<br>  "10.0.0.96/28",<br>  "10.0.0.112/28",<br>  "10.0.0.128/28"<br>]</pre> | no |
+| db\_prv\_subnets | database private subnets for the vpc | `list` | <pre>[<br>  "",<br>  "",<br>  ""<br>]</pre> | no |
 | default\_vpc\_enable\_classiclink | specify to enable default vpc classic link | `string` | `"false"` | no |
 | default\_vpc\_enable\_dns\_hostnames | specify to enable default vpc dns hostnames | `string` | `"false"` | no |
 | default\_vpc\_enable\_dns\_support | specify to enable default vpc dns support | `string` | `"false"` | no |
@@ -168,28 +165,28 @@ make apply
 | ebs\_vol\_az\_1a | az for ebs vol | `string` | `"us-east-1a"` | no |
 | ebs\_vol\_az\_1b | az for ebs vol | `string` | `"us-east-1b"` | no |
 | ebs\_vol\_az\_1d | az for ebs vol | `string` | `"us-east-1d"` | no |
-| ebs\_vol\_name | name for ebs vol | `string` | `"awse1winprdsitecore"` | no |
+| ebs\_vol\_name | name for ebs vol | `string` | `""` | no |
 | ebs\_vol\_size | size for ebs vol | `string` | `"30"` | no |
 | ebs\_vol\_size\_db | size for ebs vol | `string` | `"64"` | no |
 | ebs\_vol\_type | volume type for ebs | `string` | `"gp2"` | no |
 | ecr\_repositories | (Optional) list of ECR repositories to create for use with ECS | `list` | `[]` | no |
 | ecs | (Required) map of variables for ECS | `map` | <pre>{<br>  "desired_capacity": 4,<br>  "health_check_grace_period": 300,<br>  "health_check_type": "EC2",<br>  "instance_type": "t2.micro",<br>  "max_size": 8,<br>  "min_size": 4<br>}</pre> | no |
-| ecs01\_prv\_subnet\_cidr | cidr for ecs private subnet | `string` | `"10.0.0.48/28"` | no |
-| ecs01\_pub\_subnet\_cidr | cidr for ecs public subnet | `string` | `"10.0.0.0/28"` | no |
+| ecs01\_prv\_subnet\_cidr | cidr for ecs private subnet | `string` | `""` | no |
+| ecs01\_pub\_subnet\_cidr | cidr for ecs public subnet | `string` | `""` | no |
 | ecs01\_subnet\_az | az for the content delivery public subnet 1 | `string` | `"us-east-1a"` | no |
 | ecs01\_subnet\_prv | n/a | `any` | n/a | yes |
 | ecs01\_subnet\_prv\_cidr | cidr for ecs 01 private subnet zone 1 | `string` | `""` | no |
 | ecs01\_subnet\_pub | n/a | `any` | n/a | yes |
-| ecs01\_subnet\_pub\_cidr | cidr for ecs 01 public subnet zone 1 | `string` | `"10.0.0.0/27"` | no |
-| ecs02\_prv\_subnet\_cidr | cidr for ecs private subnet | `string` | `"10.0.0.64/28"` | no |
-| ecs02\_pub\_subnet\_cidr | cidr for ecs public subnet | `string` | `"10.0.0.16/28"` | no |
+| ecs01\_subnet\_pub\_cidr | cidr for ecs 01 public subnet zone 1 | `string` | `""` | no |
+| ecs02\_prv\_subnet\_cidr | cidr for ecs private subnet | `string` | `""` | no |
+| ecs02\_pub\_subnet\_cidr | cidr for ecs public subnet | `string` | `""` | no |
 | ecs02\_subnet\_az | az for the content delivery public subnet 2 | `string` | `"us-east-1b"` | no |
 | ecs02\_subnet\_prv | n/a | `any` | n/a | yes |
 | ecs02\_subnet\_prv\_cidr | cidr for ecs 02 private subnet zone 2 | `string` | `""` | no |
 | ecs02\_subnet\_pub | n/a | `any` | n/a | yes |
 | ecs02\_subnet\_pub\_cidr | cidr for ecs 02 public subnet zone 2 | `string` | `""` | no |
-| ecs03\_prv\_subnet\_cidr | cidr for ecs private subnet | `string` | `"10.0.0.80/28"` | no |
-| ecs03\_pub\_subnet\_cidr | cidr for ecs public subnet | `string` | `"10.0.0.32/28"` | no |
+| ecs03\_prv\_subnet\_cidr | cidr for ecs private subnet | `string` | `""` | no |
+| ecs03\_pub\_subnet\_cidr | cidr for ecs public subnet | `string` | `""` | no |
 | ecs03\_subnet\_az | az for the content delivery public subnet 3 | `string` | `"us-east-1d"` | no |
 | ecs03\_subnet\_prv | n/a | `any` | n/a | yes |
 | ecs03\_subnet\_prv\_cidr | cidr for ecs 03 private subnet zone 3 | `string` | `""` | no |
@@ -240,11 +237,11 @@ make apply
 | lb03\_prv\_subnet\_cidr | cidr for private service load balancer 03 | `string` | `""` | no |
 | lb03\_subnet\_az | az for the content delivery public subnet 3 | `string` | `"us-east-1d"` | no |
 | lb03\_subnet\_prv\_cidr | cidr for lb 03 public subnet zone 3 | `string` | `""` | no |
-| lb\_prv\_subnets | load balancer private subnets for the vpc | `list` | <pre>[<br>  "10.0.0.144/28",<br>  "10.0.0.160/28",<br>  "10.0.0.176/28"<br>]</pre> | no |
+| lb\_prv\_subnets | load balancer private subnets for the vpc | `list` | <pre>[<br>  "",<br>  "",<br>  ""<br>]</pre> | no |
 | lb\_tags | n/a | `map` | <pre>{<br>  "Name": "api-lb-pub-1-subnet",<br>  "environment": "prd",<br>  "project": "api",<br>  "role": "lb"<br>}</pre> | no |
 | loc | region for the vpc | `map` | <pre>{<br>  "e": "awse1",<br>  "w": "awsw2"<br>}</pre> | no |
 | manage\_default\_vpc | specify to manage default vpc | `string` | `"false"` | no |
-| management | (Optional) The management VPC to peer with. | `map` | <pre>{<br>  "cidr": "",<br>  "route_table_id": "rtb-cc515eb0",<br>  "vpc_id": "vpc-04d4f17f"<br>}</pre> | no |
+| management | (Optional) The management VPC to peer with. | `map` | <pre>{<br>  "cidr": "",<br>  "route_table_id": "rtb-**********",<br>  "vpc_id": "vpc-04d4f17f"<br>}</pre> | no |
 | map\_public\_ip\_on\_launch | Should be false if you do not want to auto-assign public IP on launch | `bool` | `true` | no |
 | max\_subnets | Maximum number of subnets which can be created for CIDR blocks calculation. Default to length of `names` argument | `string` | `"12"` | no |
 | max\_subnets\_prv | Maximum number of subnets which can be created for CIDR blocks calculation. Default to length of `names` argument | `string` | `"16"` | no |
@@ -276,12 +273,12 @@ make apply
 | one\_nat\_gateway\_per\_az | Should be true if you want only one NAT Gateway per availability zone. Requires `var.azs` to be set, and the number of `public_subnets` created to be greater than or equal to the number of availability zones specified in `var.azs`. | `bool` | `true` | no |
 | open\_cidr | vpc cidr for subnet | `string` | `"0.0.0.0/0"` | no |
 | owner | n/a | `string` | `"cloudops@energy.com"` | no |
-| principal\_account\_id | map of root account numbers for logging | `map` | <pre>{<br>  "us-east-1": "123456789012",<br>  "us-east-2": "123456789012",<br>  "us-west-1": "123456789012",<br>  "us-west-2": "123456789012"<br>}</pre> | no |
+| principal\_account\_id | map of root account numbers for logging | `map` | <pre>{<br>  "us-east-1": ${key_users},<br>  "us-east-2": ${key_users},<br>  "us-west-1": ${key_users},<br>  "us-west-2": ${key_users}<br>}</pre> | no |
 | private\_db\_subnet\_ids | n/a | `list` | n/a | yes |
 | private\_route\_table\_ids | private route tables for the vpc | `string` | `"ecs01_subnet_prv,ecs02_subnet_prv,ecs03_subnet_prv,ecs01_subnet_pub,ecs02_subnet_pub,ecs03_subnet_pub,db01_subnet_prv,db02_subnet_prv,db03_subnet_prv"` | no |
 | private\_route\_tables | n/a | `list` | <pre>[<br>  "prv-db01",<br>  "prv-db02",<br>  "prv-db03",<br>  "prv-ecs01",<br>  "prv-ecs02",<br>  "prv-ecs03",<br>  "prv-lb01",<br>  "prv-lb02",<br>  "prv-lb03"<br>]</pre> | no |
 | private\_subnet\_cidr | n/a | `list` | `[]` | no |
-| private\_subnets | private subnets for the vpc | `list` | <pre>[<br>  "10.0.0.48/28",<br>  "10.0.0.64/28",<br>  "10.0.0.80/28",<br>  "10.0.0.96/28",<br>  "10.0.0.112/28",<br>  "10.0.0.128/28"<br>]</pre> | no |
+| private\_subnets | private subnets for the vpc | `list` | <pre>[<br>  "",<br>  "",<br>  "",<br>  "",<br>  "",<br>  ""<br>]</pre> | no |
 | project | n/a | `string` | `"api"` | no |
 | public\_eip\_ngw\_id | public eip for the nat gateway | `list` | <pre>[<br>  "api-east-eip-ngw"<br>]</pre> | no |
 | public\_route\_table\_ids | public route tables for the vpc | `string` | `""` | no |
@@ -309,7 +306,7 @@ make apply
 | voicedb\_port | n/a | `string` | `"3306"` | no |
 | voicedb\_tags | n/a | `map` | <pre>{<br>  "Name": "api-voicedb-prv-1-subnet",<br>  "environment": "prd",<br>  "project": "api",<br>  "role": "sql"<br>}</pre> | no |
 | vpc\_attach | specifies whether the vpg should be associated with a vpc | `string` | `"true"` | no |
-| vpc\_cidr | cidr for vpc | `list` | <pre>[<br>  "10.0.0.0/24"<br>]</pre> | no |
+| vpc\_cidr | cidr for vpc | `list` | <pre>[<br>  ""<br>]</pre> | no |
 | vpc\_config | configuration option for vpc | `map(string)` | n/a | yes |
 | vpc\_id | n/a | `string` | `"api-east-vpc"` | no |
 | vpc\_ids | list of vpc ids | `list` | <pre>[<br>  "api-east-vpc"<br>]</pre> | no |
@@ -317,7 +314,7 @@ make apply
 | vpc\_security\_group\_ids | List of VPC security groups to associate | `list` | `[]` | no |
 | vpn\_bgp\_asn | bpg autonomous system number (asn) of the customer gateway for a dynamically routed VPN connection. | `string` | `"65000"` | no |
 | vpn\_config | Configuration options for VPN | `map` | n/a | yes |
-| vpn\_dest\_cidr\_block | n/a | `string` | `"10.0.0.0/24"` | no |
+| vpn\_dest\_cidr\_block | n/a | `string` | `""` | no |
 | vpn\_id | n/a | `string` | `"api-east-vpn"` | no |
 | vpn\_ip\_address | internet-routable ip address of the customer gateway's external interface. | `string` | `"172.0.0.7"` | no |
 | vpn\_mngmt\_cgw\_id | management customer gateway id | `string` | `""` | no |

@@ -1,5 +1,5 @@
 module "vpc" {
-  source                   = "git::https://innersource.accenture.com/scm/faecvtm/vpc.git"
+  source                   = "git::ssh://git@github.com:tonygyerr/terraform-aws-vpc.git"
   module_config            = var.module_config
   vpc_config               = var.vpc_config
   cidr                     = var.vpc_cidr
