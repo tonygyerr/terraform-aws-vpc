@@ -57,15 +57,6 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "ami_packer_ecs_ec2_id" {
-  description = "energy AMI built by Packer from Amazon AMI ECS Optimized"
-  type        = map
-  default = {
-    us-west-2 = "ami-11120768" #Amazon Linux AMI 2017.03.c x86_64 ECS HVM GP2
-    us-east-1 = "ami-04351e12" #Amazon Linux AMI 2017.03.d x86_64 ECS HVM GP2
-  }
-}
-
 variable "ebs_vol_name" {
   description = "name for ebs vol"
   default     = ""
