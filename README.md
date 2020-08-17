@@ -62,11 +62,9 @@ terraform destroy -var-file="../env-config/dev.tfvars"
 
 ## How to Run this Module using Makefile Process
 ```bash
-make auth
-make get
-make init
-make plan
-make apply
+plz run //:plan_exe dev us-east-1
+plz run //:apply_exe dev us-east-1
+plz run //:destroy_exe dev us-east-1
 ```
 
 ## Requirements
@@ -112,7 +110,7 @@ make apply
 | base\_cidr\_prv | cidr for vpc | `string` | `"10.0.0.0/24"` | no |
 | base\_cidr\_pub | cidr for vpc | `string` | `"10.0.0.0/24"` | no |
 | base\_private\_api\_cidr | cidr for vpc | `string` | `"10.0.0.0/24"` | no |
-| bucket\_name | the name of the s3 bucket for terraform state file | `string` | `"aee-terraform-state-non-prd"` | no |
+| bucket\_name | the name of the s3 bucket for terraform state file | `string` | `"app-terraform-state-non-prd"` | no |
 | cgw\_id | (Optional) The ID of the VPN Customer Gateway to attach to this VPC | `string` | `"api-east-cgw"` | no |
 | cidr | cidr for vpc | `string` | `"10.0.0.0/24"` | no |
 | cidr\_ap | api vpc cidr for subnet | `string` | `"10.0.0.0/24"` | no |
@@ -167,7 +165,7 @@ make apply
 | ebs\_vol\_az\_1a | az for ebs vol | `string` | `"us-east-1a"` | no |
 | ebs\_vol\_az\_1b | az for ebs vol | `string` | `"us-east-1b"` | no |
 | ebs\_vol\_az\_1d | az for ebs vol | `string` | `"us-east-1d"` | no |
-| ebs\_vol\_name | name for ebs vol | `string` | `"awse1winprdsitecore"` | no |
+| ebs\_vol\_name | name for ebs vol | `string` | `""` | no |
 | ebs\_vol\_size | size for ebs vol | `string` | `"30"` | no |
 | ebs\_vol\_size\_db | size for ebs vol | `string` | `"64"` | no |
 | ebs\_vol\_type | volume type for ebs | `string` | `"gp2"` | no |
@@ -243,7 +241,7 @@ make apply
 | lb\_tags | n/a | `map` | <pre>{<br>  "Name": "api-lb-pub-1-subnet",<br>  "environment": "prd",<br>  "project": "api",<br>  "role": "lb"<br>}</pre> | no |
 | loc | region for the vpc | `map` | <pre>{<br>  "e": "awse1",<br>  "w": "awsw2"<br>}</pre> | no |
 | manage\_default\_vpc | specify to manage default vpc | `string` | `"false"` | no |
-| management | (Optional) The management VPC to peer with. | `map` | <pre>{<br>  "cidr": "",<br>  "route_table_id": "rtb-cc515eb0",<br>  "vpc_id": "vpc-04d4f17f"<br>}</pre> | no |
+| management | (Optional) The management VPC to peer with. | `map` | <pre>{<br>  "cidr": "",<br>  "route_table_id": "rtb-**********",<br>  "vpc_id": "vpc-04d4f17f"<br>}</pre> | no |
 | map\_public\_ip\_on\_launch | Should be false if you do not want to auto-assign public IP on launch | `bool` | `true` | no |
 | max\_subnets | Maximum number of subnets which can be created for CIDR blocks calculation. Default to length of `names` argument | `string` | `"12"` | no |
 | max\_subnets\_prv | Maximum number of subnets which can be created for CIDR blocks calculation. Default to length of `names` argument | `string` | `"16"` | no |

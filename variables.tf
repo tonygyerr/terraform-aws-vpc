@@ -68,7 +68,7 @@ variable "ami_packer_ecs_ec2_id" {
 
 variable "ebs_vol_name" {
   description = "name for ebs vol"
-  default     = "awse1winprdsitecore"
+  default     = ""
 }
 
 variable "ebs_vol_az_1a" {
@@ -117,7 +117,7 @@ variable "management" {
   default = {
     vpc_id         = "vpc-04d4f17f"
     cidr           = ""
-    route_table_id = "rtb-cc515eb0"
+    route_table_id = "rtb-**********"
   }
 }
 
@@ -705,7 +705,7 @@ variable "alb_is_internal" {
 */
 variable "bucket_name" {
   description = "the name of the s3 bucket for terraform state file"
-  default     = "aee-terraform-state-non-prd"
+  default     = "app-terraform-state-non-prd"
 }
 
 /*
