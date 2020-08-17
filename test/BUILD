@@ -4,7 +4,7 @@ go_test(
     srcs = glob([
         "*.go",
     ]),
-    data = ["//terraform/modules/vpc:vpc_pkg"],
+    data = ["//:vpc_pkg"],
     visibility = ["PUBLIC"],
     deps = [
         "//third_party/go:terratest",

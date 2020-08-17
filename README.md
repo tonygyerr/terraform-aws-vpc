@@ -12,7 +12,7 @@ Terraform will be used to provision AWS infrastructure and resources for Web:
 
 ```hcl
 module "vpc" {
-  source                   = "git::https://innersource.accenture.com/scm/faecvtm/vpc.git"
+  source                   = "git::ssh://git@github.com:tonygyerr/terraform-aws-vpc.git"
   module_config            = var.module_config
   vpc_config               = var.vpc_config
   cidr                     = var.vpc_cidr
@@ -46,15 +46,14 @@ module "vpc" {
 - Docker (for using Docker Image of dependencies)
 - Git
 - Terraform
-- vip2adfs2aws, or aaca for authenticating against your AWS account.
 - AWS Key pair for Terraform provisioning.
 - AWS S3 bucket for remote terraform state file (tfstate)
 - AWS Dynamo Database for tfstate table state lock 
 
 ## How to run this Module using Terraform Commands
 ```bash
-vip2adfs2aws aws-auth --user-enterprise-id <accenture user id> --user-email <username.lastname@accenture.com> --user-aws-role-index 0 --aws-region <amazon region>
 cd examples
+terraform get
 terraform init -backend-config ../backend-config/dev.tfvars
 terraform plan -var-file="../env-config/dev.tfvars"
 terraform apply -var-file="../env-config/dev.tfvars" -auto-approve
@@ -87,7 +86,7 @@ make apply
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| aabg\_tags | optional default tags | `map` | <pre>{<br>  "CostCenter": "N/A",<br>  "Name": "api",<br>  "Owner": "cloudops@energy.com",<br>  "env": "dev",<br>  "project": "aabg",<br>  "vpc": "api-east-vpc"<br>}</pre> | no |
+| app\_tags | optional default tags | `map` | <pre>{<br>  "CostCenter": "N/A",<br>  "Name": "api",<br>  "Owner": "cloudops@energy.com",<br>  "env": "dev",<br>  "project": "app",<br>  "vpc": "api-east-vpc"<br>}</pre> | no |
 | alb\_is\_internal | determines if the alb is internal or not | `string` | `"false"` | no |
 | ami\_packer\_ecs\_ec2\_id | energy AMI built by Packer from Amazon AMI ECS Optimized | `map` | <pre>{<br>  "us-east-1": "ami-04351e12",<br>  "us-west-2": "ami-11120768"<br>}</pre> | no |
 | amount\_private\_api\_subnets | n/a | `string` | `"3"` | no |
@@ -105,7 +104,7 @@ make apply
 | availability\_zone | n/a | `string` | `"us-east-1a"` | no |
 | availability\_zones | n/a | `string` | `"us-east-1a,us-east-1b,us-east-1d"` | no |
 | aws | (Required) AWS credentials | `map` | <pre>{<br>  "az_count": 3,<br>  "region": "us-east-1"<br>}</pre> | no |
-| aws\_account\_id | aws account id | `string` | `"123456789012"` | no |
+| aws\_account\_id | aws account id | `string` | `${key_users}` | no |
 | aws\_key\_name | aws key name | `string` | `"terraform"` | no |
 | aws\_region | ec2 region for the vpc | `string` | `"us-east-1"` | no |
 | azs | n/a | `list` | <pre>[<br>  "us-east-1a",<br>  "us-east-1b",<br>  "us-east-1d"<br>]</pre> | no |
@@ -276,7 +275,7 @@ make apply
 | one\_nat\_gateway\_per\_az | Should be true if you want only one NAT Gateway per availability zone. Requires `var.azs` to be set, and the number of `public_subnets` created to be greater than or equal to the number of availability zones specified in `var.azs`. | `bool` | `true` | no |
 | open\_cidr | vpc cidr for subnet | `string` | `"0.0.0.0/0"` | no |
 | owner | n/a | `string` | `"cloudops@energy.com"` | no |
-| principal\_account\_id | map of root account numbers for logging | `map` | <pre>{<br>  "us-east-1": "123456789012",<br>  "us-east-2": "123456789012",<br>  "us-west-1": "123456789012",<br>  "us-west-2": "123456789012"<br>}</pre> | no |
+| principal\_account\_id | map of root account numbers for logging | `map` | <pre>{<br>  "us-east-1": ${key_users},<br>  "us-east-2": ${key_users},<br>  "us-west-1": ${key_users},<br>  "us-west-2": ${key_users}<br>}</pre> | no |
 | private\_db\_subnet\_ids | n/a | `list` | n/a | yes |
 | private\_route\_table\_ids | private route tables for the vpc | `string` | `"ecs01_subnet_prv,ecs02_subnet_prv,ecs03_subnet_prv,ecs01_subnet_pub,ecs02_subnet_pub,ecs03_subnet_pub,db01_subnet_prv,db02_subnet_prv,db03_subnet_prv"` | no |
 | private\_route\_tables | n/a | `list` | <pre>[<br>  "prv-db01",<br>  "prv-db02",<br>  "prv-db03",<br>  "prv-ecs01",<br>  "prv-ecs02",<br>  "prv-ecs03",<br>  "prv-lb01",<br>  "prv-lb02",<br>  "prv-lb03"<br>]</pre> | no |

@@ -11,7 +11,7 @@ variable "aws" {
 variable "aws_account_id" {
   type        = string
   description = "aws account id"
-  default     = "123456789012"
+  default     = ""
 }
 
 variable "principal_account_id" {
@@ -19,10 +19,10 @@ variable "principal_account_id" {
   description = "map of root account numbers for logging"
 
   default = {
-    us-east-1 = "123456789012"
-    us-east-2 = "123456789012"
-    us-west-1 = "123456789012"
-    us-west-2 = "123456789012"
+    us-east-1 = ""
+    us-east-2 = ""
+    us-west-1 = ""
+    us-west-2 = ""
   }
 }
 
@@ -435,7 +435,7 @@ variable "ssh_port" {
 
 variable "private_db_subnet_ids" {
   type = list
-  #default = "lb01_subnet_pub,lb02_subnet_pub,lb03_subnet_pub"
+  default = []
 }
 
 
@@ -682,7 +682,7 @@ variable "aabg_tags" {
     CostCenter = "N/A"
     vpc        = "api-east-vpc"
     env        = "dev"
-    project    = "aabg"
+    project    = "app"
   }
 }
 
