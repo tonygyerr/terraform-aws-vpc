@@ -223,37 +223,37 @@ variable "public_eip_ngw_id" {
 
 variable "vpn_dest_cidr_block" {
   type    = string
-  default = "10.0.0.0/24"
+  default = ""
 }
 
 variable "cidr" {
   description = "cidr for vpc"
   type        = string
-  default     = "10.0.0.0/24"
+  default     = ""
 }
 
 variable "base_cidr" {
   description = "cidr for vpc" #this variable is utilized in the locals.tf
   type        = string
-  default     = "10.0.0.0/20"
+  default     = ""
 }
 
 variable "base_cidr_pub" {
   description = "cidr for vpc"
   type        = string
-  default     = "10.0.0.0/24"
+  default     = ""
 }
 
 variable "base_cidr_prv" {
   description = "cidr for vpc"
   type        = string
-  default     = "10.0.0.0/24"
+  default     = ""
 }
 
 variable "base_private_api_cidr" {
   description = "cidr for vpc"
   type        = string
-  default     = "10.0.0.0/24"
+  default     = ""
 }
 
 variable "cloud_ts_cidr" {
@@ -271,25 +271,25 @@ variable "vpc_mngmt_cidr" {
 variable "api_pub_subnets" {
   description = "ecs public subnets for the vpc"
   type        = list
-  default     = ["10.0.0.0/28", "10.0.0.16/28", "10.0.0.32/28"]
+  default     = []
 }
 
 variable "api_prv_subnets" {
   description = "ecs private subnets for the vpc"
   type        = list
-  default     = ["10.0.0.48/28", "10.0.0.64/28", "10.0.0.80/28"]
+  default     = []
 }
 
 variable "db_prv_subnets" {
   description = "database private subnets for the vpc"
   type        = list
-  default     = ["10.0.0.96/28", "10.0.0.112/28", "10.0.0.128/28"]
+  default     = []
 }
 
 variable "lb_prv_subnets" {
   description = "load balancer private subnets for the vpc"
   type        = list
-  default     = ["10.0.0.144/28", "10.0.0.160/28", "10.0.0.176/28"]
+  default     = []
 }
 
 variable "vpn_mngmt_cgw_id" {
@@ -319,7 +319,7 @@ variable "epo_cidr" {
 variable "ecs01_subnet_pub_cidr" {
   description = "cidr for ecs 01 public subnet zone 1"
   type        = string
-  default     = "10.0.0.0/27"
+  default     = ""
 }
 
 variable "ecs02_subnet_pub_cidr" {
@@ -418,109 +418,9 @@ variable "ssh_port" {
   default = "22"
 }
 
-#variable "redis_private_subnet_ids" {
-#  type    = string
-#default = "db0_subnet_prv,db02_subnet_prv,db03_subnet_prv"
-#}
-
-#variable "public_subnet_ids" {
-#  type    = list
-#default = "lb01_subnet_pub,lb02_subnet_pub,lb03_subnet_pub"
-#}
-
-#variable "private_subnet_ids" {
-#  type    = list
-#default = "ecs01_subnet_prv,ecs02_subnet_prv,ecs03_subnet_prv,db01_subnet_prv,db02_subnet_prv,db03_subnet_prv,cd01_subnet_prv,cd02_subnet_prv,cd03_subnet_prv"
-#}
-
 variable "private_db_subnet_ids" {
   type = list
   default = []
-}
-
-
-variable "private_subnets" {
-  description = "private subnets for the vpc"
-  type        = list
-  default     = ["10.0.0.48/28", "10.0.0.64/28", "10.0.0.80/28", "10.0.0.96/28", "10.0.0.112/28", "10.0.0.128/28"]
-}
-
-variable "open_cidr" {
-  description = "vpc cidr for subnet"
-  type        = string
-  default     = "0.0.0.0/0"
-}
-
-variable "cidr_pub" {
-  description = "vpc cidr for subnet"
-  type        = string
-  default     = "10.0.0.0/19"
-}
-
-variable "cidr_prv" {
-  description = "vpc cidr for subnet"
-  type        = string
-  default     = "10.0.0.0/20"
-}
-
-variable "cidr_ap" {
-  description = "api vpc cidr for subnet"
-  type        = string
-  default     = "10.0.0.0/24"
-}
-
-variable "ecs01_pub_subnet_cidr" {
-  description = "cidr for ecs public subnet"
-  type        = string
-  default     = "10.0.0.0/28"
-}
-
-variable "ecs02_pub_subnet_cidr" {
-  description = "cidr for ecs public subnet"
-  type        = string
-  default     = "10.0.0.16/28"
-}
-
-variable "ecs03_pub_subnet_cidr" {
-  description = "cidr for ecs public subnet"
-  type        = string
-  default     = "10.0.0.32/28"
-}
-
-variable "ecs01_prv_subnet_cidr" {
-  description = "cidr for ecs private subnet"
-  type        = string
-  default     = "10.0.0.48/28"
-}
-
-variable "ecs02_prv_subnet_cidr" {
-  description = "cidr for ecs private subnet"
-  type        = string
-  default     = "10.0.0.64/28"
-}
-
-variable "ecs03_prv_subnet_cidr" {
-  description = "cidr for ecs private subnet"
-  type        = string
-  default     = "10.0.0.80/28"
-}
-
-variable "db01_prv_subnet_cidr" {
-  description = "cidr for db01 aurora private subnet"
-  type        = string
-  default     = "10.0.0.96/28"
-}
-
-variable "db02_prv_subnet_cidr" {
-  description = "cidr for db02 aurora private subnet"
-  type        = string
-  default     = "10.0.0.112/28"
-}
-
-variable "db03_prv_subnet_cidr" {
-  description = "cidr for db03 aurora database private subnet"
-  type        = string
-  default     = "10.0.0.128/28"
 }
 
 variable "lb01_prv_subnet_cidr" {
@@ -541,9 +441,6 @@ variable "lb03_prv_subnet_cidr" {
   default     = ""
 }
 
-/*
- subnet zones 
-*/
 variable "ecs01_subnet_az" {
   description = "az for the content delivery public subnet 1"
   default     = "us-east-1a"
@@ -589,18 +486,12 @@ variable "lb03_subnet_az" {
   default     = "us-east-1d"
 }
 
-/*
- ecr 
-*/
 variable "ecr_repositories" {
   description = "(Optional) list of ECR repositories to create for use with ECS"
   type        = list
   default     = []
 }
 
-/*
- ecs 
-*/
 variable "ecs" {
   description = "(Required) map of variables for ECS"
   type        = map
@@ -692,34 +583,22 @@ variable "project" {
   default = "api"
 }
 
-/*
-application load balancer
-*/
 variable "alb_is_internal" {
   description = "determines if the alb is internal or not"
   default     = "false"
 }
 
-/*
- s3
-*/
 variable "bucket_name" {
   description = "the name of the s3 bucket for terraform state file"
   default     = "app-terraform-state-non-prd"
 }
 
-/*
- sqs
-*/
 variable "sqs_queues" {
   description = "(Optional) list of SQS queues to create"
   type        = list
   default     = []
 }
 
-/*
- sns
-*/
 variable "sns_topics" {
   description = "(Optional) list of SNS topics to create"
   type        = list
@@ -1226,7 +1105,7 @@ variable "vpc_config" {
 variable "vpc_cidr" {
   description = "cidr for vpc"
   type        = list
-  default     = ["10.0.0.0/24"]
+  default     = [""]
 }
 
 variable "public_subnet_cidr" {
@@ -1386,4 +1265,89 @@ variable "map_public_ip_on_launch" {
 variable "enable_vpn_gateway" {
   description = "Should be true if you want to create a new VPN Gateway resource and attach it to the VPC"
   default     = false
+}
+
+
+variable "private_subnets" {
+  description = "private subnets for the vpc"
+  type        = list
+  default     = []
+}
+
+variable "open_cidr" {
+  description = "vpc cidr for subnet"
+  type        = string
+  default     = "0.0.0.0/0"
+}
+
+variable "cidr_pub" {
+  description = "vpc cidr for subnet"
+  type        = string
+  default     = ""
+}
+
+variable "cidr_prv" {
+  description = "vpc cidr for subnet"
+  type        = string
+  default     = ""
+}
+
+variable "cidr_ap" {
+  description = "api vpc cidr for subnet"
+  type        = string
+  default     = ""
+}
+
+variable "ecs01_pub_subnet_cidr" {
+  description = "cidr for ecs public subnet"
+  type        = string
+  default     = ""
+}
+
+variable "ecs02_pub_subnet_cidr" {
+  description = "cidr for ecs public subnet"
+  type        = string
+  default     = ""
+}
+
+variable "ecs03_pub_subnet_cidr" {
+  description = "cidr for ecs public subnet"
+  type        = string
+  default     = ""
+}
+
+variable "ecs01_prv_subnet_cidr" {
+  description = "cidr for ecs private subnet"
+  type        = string
+  default     = ""
+}
+
+variable "ecs02_prv_subnet_cidr" {
+  description = "cidr for ecs private subnet"
+  type        = string
+  default     = ""
+}
+
+variable "ecs03_prv_subnet_cidr" {
+  description = "cidr for ecs private subnet"
+  type        = string
+  default     = ""
+}
+
+variable "db01_prv_subnet_cidr" {
+  description = "cidr for db01 aurora private subnet"
+  type        = string
+  default     = ""
+}
+
+variable "db02_prv_subnet_cidr" {
+  description = "cidr for db02 aurora private subnet"
+  type        = string
+  default     = ""
+}
+
+variable "db03_prv_subnet_cidr" {
+  description = "cidr for db03 aurora database private subnet"
+  type        = string
+  default     = ""
 }
