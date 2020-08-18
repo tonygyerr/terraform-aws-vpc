@@ -11,13 +11,13 @@ variable "module_config" {
 variable "vpc_cidr" {
   description = "cidr for vpc"
   type        = string
-  default     = "10.0.0.0/24"
+  default     = ""
 }
 
 variable "private_subnets" {
   description = "private subnets for the vpc"
   type        = list(string)
-  default     = ["10.0.0.48/28", "10.0.0.64/28", "10.0.0.80/28", "10.0.0.96/28", "10.0.0.112/28", "10.0.0.128/28", "10.0.0.144/28", "10.0.0.160/28", "10.0.0.176/28"]
+  default     = []
 }
 
 variable "vpc_name" {
@@ -138,35 +138,31 @@ variable "domain_name" {
 variable "domain_name_servers" {
   description = "A comma separated list of the IP addresses of internal DHCP servers"
   type        = string
-  default     = "172.28.34.219,172.28.37.121,AmazonProvidedDNS"
+  default     = ""
 }
-
-/*
- subnets
-*/
 
 variable "api_pub_subnets" {
   description = "ecs public subnets for the vpc"
   type        = list(string)
-  default     = ["10.0.0.0/28", "10.0.0.16/28", "10.0.0.32/28"]
+  default     = []
 }
 
 variable "api_prv_subnets" {
   description = "ecs private subnets for the vpc"
   type        = list(string)
-  default     = ["10.0.0.48/28", "10.0.0.64/28", "10.0.0.80/28"]
+  default     = []
 }
 
 variable "db_prv_subnets" {
   description = "database private subnets for the vpc"
   type        = list(string)
-  default     = ["10.0.0.96/28", "10.0.0.112/28", "10.0.0.128/28"]
+  default     = []
 }
 
 variable "lb_prv_subnets" {
   description = "load balancer private subnets for the vpc"
   type        = list(string)
-  default     = ["10.0.0.144/28", "10.0.0.160/28", "10.0.0.176/28"]
+  default     = []
 }
 
 /*
@@ -275,42 +271,42 @@ variable "cost_center_default_vpc" {
 }
 
 variable "ecs01_subnet_prv" {
-  #default = "ecs01_subnet_prv"
+  default = ""
 }
 
 variable "ecs02_subnet_prv" {
-  #default = "ecs02_subnet_prv"
+  default = ""
 }
 
 variable "ecs03_subnet_prv" {
-  #default = "ecs03_subnet_prv"
+  default = ""
 }
 
 variable "ecs01_subnet_pub" {
-  #default = "ecs01_subnet_pub"
+  default = ""
 }
 
 variable "ecs02_subnet_pub" {
-  #default = "ecs02_subnet_pub"
+  default = ""
 }
 
 variable "ecs03_subnet_pub" {
-  #default = "ecs03_subnet_pub"
+  default = ""
 }
 
 variable "db01_subnet_prv" {
   description = "database 1 for api"
-  #default     = "db01_subnet_prv"
+  default     = ""
 }
 
 variable "db02_subnet_prv" {
   description = "database 2 for api"
-  #default     = "db02_subnet_prv"
+  default     = ""
 }
 
 variable "db03_subnet_prv" {
   description = "database 3 for api"
-  #default     = "db03_subnet_prv"
+  default     = ""
 }
 
 #variable "public_subnet_ids" {
@@ -326,4 +322,10 @@ variable "db03_subnet_prv" {
 variable "vpn_config" {
   description = "Configuration options for VPN"
   type        = map
+}
+
+variable "app_name" {
+  type        = string
+  description = "Application Name"
+  default     = ""
 }

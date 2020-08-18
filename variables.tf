@@ -410,7 +410,7 @@ variable "ssh_port" {
 }
 
 variable "private_db_subnet_ids" {
-  type = list
+  type    = list
   default = []
 }
 
@@ -1340,5 +1340,11 @@ variable "db02_prv_subnet_cidr" {
 variable "db03_prv_subnet_cidr" {
   description = "cidr for db03 aurora database private subnet"
   type        = string
+  default     = ""
+}
+
+variable "app_name" {
+  type        = string
+  description = "Application Name"
   default     = ""
 }
