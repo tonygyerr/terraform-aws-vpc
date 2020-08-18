@@ -27,7 +27,6 @@ module "vpc" {
   private_subnets          = var.private_subnets
   region                   = var.aws_region
   single_nat_gateway       = true
-  vpc_cidr                 = var.vpc_cidr
   vpc_config               = var.vpc_config
   vpc_id                   = module.vpc.vpc_id
   vpn_config               = var.vpn_config
