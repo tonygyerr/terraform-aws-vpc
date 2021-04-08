@@ -23,7 +23,7 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route_table_association" "pub-assoc-api" {
-  count           = var.number_public_rt
+  count           = var.number_rt
   subnet_id       = element(aws_subnet.api_subnet_pub.*.id, count.index)
   route_table_id  = element(aws_route_table.public.*.id, count.index)
   # route_table_id  = aws_route_table.public.id
