@@ -25,27 +25,27 @@ resource "aws_route_table" "private" {
 resource "aws_route_table_association" "pub-assoc-api" {
   count           = var.number_public_rt
   subnet_id       = element(aws_subnet.api_subnet_pub.*.id, count.index)
-  route_table_id  = aws_route_table.public[count.index]
+  route_table_id  = element(aws_route_table.public.*.id, count.index)
   # route_table_id  = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "prv-assoc-api" {
   count           = var.number_rt
   subnet_id       = element(aws_subnet.api_subnet_prv.*.id, count.index)
-  route_table_id  = aws_route_table.private[count.index]
+  route_table_id  = element(aws_route_table.private.*.id, count.index)
   # route_table_id  = aws_route_table.private.id
 }
 
 resource "aws_route_table_association" "prv-assoc-db" {
   count           = var.number_rt
   subnet_id       = element(aws_subnet.db_subnet_prv.*.id, count.index)
-  route_table_id  = aws_route_table.private[count.index]
+  route_table_id  = element(aws_route_table.private.*.id, count.index)
   # route_table_id  = aws_route_table.private.id
 }
 
 resource "aws_route_table_association" "prv-assoc-lb" {
   count           = var.number_rt
   subnet_id       = element(aws_subnet.lb_subnet_prv.*.id, count.index)
-  route_table_id  = aws_route_table.private[count.index]
+  route_table_id  = element(aws_route_table.private.*.id, count.index)
   # route_table_id  = aws_route_table.private.id
 }
