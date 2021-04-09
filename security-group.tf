@@ -57,14 +57,12 @@ resource "aws_security_group" "app" {
 
   egress {
     from_port   = 0
-    to_port     = 65535
-    protocol    = 0
-    description = ""
+    to_port     = 0
+    protocol    = -1
     cidr_blocks = [var.open_cidr]
   }
   vpc_id = aws_vpc.api-vpc.id
 }
-
 
 resource "aws_security_group_rule" "app"{
   type = "ingress"
