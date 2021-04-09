@@ -1,4 +1,4 @@
-resource "aws_security_group" "api-prv-sg" {
+resource "aws_security_group" "app" {
   name        = "${var.project}-${var.environment}-prv-sg"
   description = "allow private incoming http connections"
 
@@ -7,45 +7,70 @@ resource "aws_security_group" "api-prv-sg" {
   }
 
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${var.ecs01_subnet_prv}", "${var.ecs02_subnet_prv}", "${var.ecs03_subnet_prv}"]
+    cidr_blocks = var.private_subnets
   }
 
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["${var.ecs01_subnet_prv}", "${var.ecs02_subnet_prv}", "${var.ecs03_subnet_prv}"]
+    cidr_blocks = var.api_pub_subnets
   }
 
-  egress {
-    from_port   = 80
-    to_port     = 80
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
     protocol    = "tcp"
-    cidr_blocks = ["${var.ecs01_subnet_prv}", "${var.ecs02_subnet_prv}", "${var.ecs03_subnet_prv}"]
+    cidr_blocks = var.db_prv_subnets
   }
 
-  egress {
-    from_port   = 80
-    to_port     = 80
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["${var.db01_subnet_prv}", "${var.db02_subnet_prv}", "${var.db03_subnet_prv}"]
+    cidr_blocks = var.db_prv_subnets
+  }
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = var.db_prv_subnets
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = var.private_subnets
   }
 
   ingress {
     from_port   = 9000
     to_port     = 9000
     protocol    = "tcp"
-    cidr_blocks = ["${var.ecs01_subnet_prv}", "${var.ecs02_subnet_prv}", "${var.ecs03_subnet_prv}"]
+    cidr_blocks = var.private_subnets
   }
 
   egress {
-    from_port   = 9000
-    to_port     = 9000
-    protocol    = "tcp"
-    cidr_blocks = ["${var.db01_subnet_prv}", "${var.db02_subnet_prv}", "${var.db03_subnet_prv}"]
+    from_port   = 0
+    to_port     = 65535
+    protocol    = 0
+    description = ""
+    cidr_blocks = [var.open_cidr]
   }
   vpc_id = aws_vpc.api-vpc.id
+}
+
+
+resource "aws_security_group_rule" "app"{
+  type = "ingress"
+  from_port   = 0 
+  to_port     = 65535 
+  protocol    = "tcp"
+  security_group_id = aws_security_group.app.id
+  source_security_group_id = aws_security_group.app.id
 }
