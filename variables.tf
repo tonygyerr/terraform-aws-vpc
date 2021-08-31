@@ -1343,6 +1343,13 @@ variable "db03_prv_subnet_cidr" {
   default     = ""
 }
 
+variable "db_subnet_group_name" {
+  description = "The name of the Database Subnet Group name"
+  type        = string
+  default     = ""
+}
+
+
 variable "app_name" {
   type        = string
   description = "Application Name"
