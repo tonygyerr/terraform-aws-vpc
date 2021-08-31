@@ -30,4 +30,5 @@ module "vpc" {
   vpc_config               = var.vpc_config
   vpc_id                   = module.vpc.vpc_id
   vpn_config               = var.vpn_config
+  vpn_ip_address           = var.vpn_ip_address
 }

@@ -329,3 +329,9 @@ variable "app_name" {
   description = "Application Name"
   default     = ""
 }
+
+variable "vpn_ip_address" {
+  type = string
+  default = ""
+  
+}
