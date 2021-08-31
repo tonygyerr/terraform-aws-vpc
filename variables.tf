@@ -152,7 +152,7 @@ variable "vpn_bgp_asn" {
 
 variable "vpn_ip_address" {
   description = "internet-routable ip address of the customer gateway's external interface."
-  default     = "172.0.0.7"
+  default     = ""
 }
 
 variable "ecs01_subnet_prv" {
