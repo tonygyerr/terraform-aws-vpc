@@ -10,7 +10,7 @@ resource "aws_vpc" "api-vpc" {
   tags = merge(
     data.null_data_source.merged_tags.outputs,
     map(
-      "Name", lookup(var.vpc_config, "name", "api-vpc")
+      "Name", lookup(var.vpc_config, "name_prefix", "")
     )
   )
 }
