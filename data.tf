@@ -25,7 +25,7 @@ data "null_data_source" "terraform_tags" {
 
 data "null_data_source" "merged_tags" {
   inputs = merge(
-    var.aabg_tags,
+    var.tags,
     data.null_data_source.terraform_tags.outputs,
     var.extra_tags
   )

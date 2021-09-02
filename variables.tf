@@ -554,7 +554,7 @@ variable "team" {
   default = ["cloud"]
 }
 
-variable "aabg_tags" {
+variable "tags" {
   type        = map
   description = "optional default tags"
 
@@ -847,12 +847,6 @@ variable "rt_pub_tags" {
 }
 
 variable "extra_tags" {
-  type        = map(string)
-  description = "optional default tags"
-  default     = {}
-}
-
-variable "tags" {
   type        = map(string)
   description = "optional default tags"
   default     = {}

@@ -76,6 +76,7 @@ variable "env" {
 
 variable "environment" {
   type = string
+  default = ""
 }
 
 variable "application" {
