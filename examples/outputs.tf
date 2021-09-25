@@ -26,3 +26,11 @@ output "private_lb_subnets" {
 output "api_security_group_id" {
   value = [module.vpc.api_security_group_id]
 }
+
+output "route_table_pub_id" {
+  value = [module.vpc.public.route_table_pub_id]
+}
+
+output "route_table_prv_id" {
+  value = [module.vpc.route_table_prv_id]
+}

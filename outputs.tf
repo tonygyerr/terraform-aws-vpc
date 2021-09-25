@@ -33,3 +33,11 @@ output "db_subnet_group_name" {
 output "api_security_group_id" {
   value = aws_security_group.app.id
 }
+
+output "route_table_pub_id" {
+  value = aws_route_table.public.id
+}
+
+output "route_table_prv_id" {
+  value = aws_route_table.private.id
+}
