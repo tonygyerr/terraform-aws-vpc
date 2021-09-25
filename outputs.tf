@@ -35,9 +35,9 @@ output "api_security_group_id" {
 }
 
 output "route_table_pub_id" {
-  value = aws_route_table.public.id
+  value = aws_route_table.public.*.id
 }
 
 output "route_table_prv_id" {
-  value = aws_route_table.private.id
+  value = aws_route_table.private.*.id
 }
