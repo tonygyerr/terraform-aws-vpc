@@ -6,11 +6,23 @@ resource "aws_route_table" "public" {
     cidr_block = var.open_cidr
     gateway_id = aws_internet_gateway.api-ig.id
   }
+  tags = merge(
+    data.null_data_source.merged_tags.outputs,
+    map(
+      "Name", lookup(var.vpc_config, "name_prefix", "service-vpc-pub-rt")
+    )
+  )
 }
 
 resource "aws_route_table" "private" {
   count  = var.number_private_rt
   vpc_id = aws_vpc.api-vpc.id
+  tags = merge(
+    data.null_data_source.merged_tags.outputs,
+    map(
+      "Name", lookup(var.vpc_config, "name_prefix", "service-vpc-prv-rt")
+    )
+  )
 }
 
 resource "aws_route_table_association" "pub-assoc-api" {
