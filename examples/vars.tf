@@ -22,16 +22,12 @@ variable "private_subnets" {
 
 variable "vpc_name" {
   description = "name of the vpc"
-  default     = "api-vpc"
+  default     = ""
 }
 
 variable "vpc_default_name" {
   description = "name of the vpc"
-  default     = "api-vpc-default"
-}
-
-variable "query_aws" {
-  default = true
+  default     = ""
 }
 
 variable "extra_tags" {
@@ -49,33 +45,11 @@ variable "tags" {
 variable "tags_default" {
   type        = map(string)
   description = "optional default tags"
-
-  default = {
-    # Name       = "default-api"
-    # Owner      = "cloudops@energy.com"
-    # CostCenter = "N/A"
-    # vpc        = "default"
-    # env        = "prd"
-    # project    = "default"
-  }
-}
-
-variable "env" {
-  type        = map(string)
-  description = "enviornment"
-
-  default = {
-    dev  = "dev"
-    test = "test"
-    stg  = "stg"
-    qa   = "qa"
-    prd  = "prd"
-    prd  = "prd"
-  }
+  default = {}
 }
 
 variable "environment" {
-  type = string
+  type    = string
   default = ""
 }
 
@@ -83,16 +57,6 @@ variable "app_name" {
   type        = string
   description = "Application Name"
   default     = ""
-}
-
-variable "cost_center" {
-  type    = string
-  default = "N/A"
-}
-
-variable "owner" {
-  type    = string
-  default = "cloudops@energy.com"
 }
 
 variable "aws_region" {
@@ -115,18 +79,6 @@ variable "azs" {
   default = ["us-east-1a", "us-east-1b", "us-east-1d"]
 }
 
-variable "tier" {
-  type        = map(string)
-  description = "solution tier"
-
-  default = {
-    api  = "api"
-    api  = "api"
-    mgmt = "mgmt"
-    web  = "web"
-  }
-}
-
 variable "name" {
   description = "The domain name to setup DHCP for"
   default     = "api"
@@ -145,13 +97,13 @@ variable "domain_name_servers" {
 }
 
 variable "api_pub_subnets" {
-  description = "ecs public subnets for the vpc"
+  description = "public subnets for the vpc"
   type        = list(string)
   default     = []
 }
 
 variable "api_prv_subnets" {
-  description = "ecs private subnets for the vpc"
+  description = "private subnets for the vpc"
   type        = list(string)
   default     = []
 }
@@ -168,163 +120,15 @@ variable "lb_prv_subnets" {
   default     = []
 }
 
-/*
- default vpc
-*/
-
 variable "create_vpc" {
   type        = string
   description = "specify to create vpc"
   default     = "true"
 }
 
-variable "default_vpc_name" {
-  description = "specify default vpc name"
-  default     = "default-api"
-}
-
-variable "manage_default_vpc" {
-  type        = string
-  description = "specify to manage default vpc"
-  default     = "false"
-}
-
-variable "default_vpc_enable_dynamodb_endpoint" {
-  type        = string
-  description = "specify to enable default vpc dynamodb endpoint"
-  default     = "false"
-}
-
-variable "default_vpc_enable_dns_hostnames" {
-  type        = string
-  description = "specify to enable default vpc dns hostnames"
-  default     = "false"
-}
-
-variable "default_vpc_enable_classiclink" {
-  type        = string
-  description = "specify to enable default vpc classic link"
-  default     = "false"
-}
-
-variable "default_vpc_enable_dns_support" {
-  type        = string
-  description = "specify to enable default vpc dns support"
-  default     = "false"
-}
-
-variable "default_vpc_create_database_subnet_group" {
-  type        = string
-  description = "specify to create database subnet group"
-  default     = "false"
-}
-
-variable "default_vpc_enable_nat_gateway" {
-  type        = string
-  description = "specify to enable nat gateway"
-  default     = "false"
-}
-
-variable "default_vpc_single_nat_gateway" {
-  type        = string
-  description = "specify to create single nat gateway"
-  default     = "false"
-}
-
-variable "default_vpc_enable_vpn_gateway" {
-  type        = string
-  description = "specify to enable vpn gateway"
-  default     = "false"
-}
-
-variable "default_vpc_enable_s3_endpoint" {
-  type        = string
-  description = "specify to enable s3 endpoint"
-  default     = "false"
-}
-
-variable "owner_default_vpc" {
-  type    = string
-  default = "cloudops@energy.com"
-}
-
-variable "environment_default_vpc" {
-  type    = string
-  default = "none"
-}
-
-variable "aws_region_default_vpc" {
-  description = "ec2 region for the vpc"
-  default     = "us-east-1"
-}
-
-variable "application_default_vpc" {
-  type    = string
-  default = "default-api"
-}
-
-variable "region_default_vpc" {
-  type    = string
-  default = "us-east-1"
-}
-
-variable "cost_center_default_vpc" {
-  type    = string
-  default = "N/A"
-}
-
-variable "ecs01_subnet_prv" {
-  default = ""
-}
-
-variable "ecs02_subnet_prv" {
-  default = ""
-}
-
-variable "ecs03_subnet_prv" {
-  default = ""
-}
-
-variable "ecs01_subnet_pub" {
-  default = ""
-}
-
-variable "ecs02_subnet_pub" {
-  default = ""
-}
-
-variable "ecs03_subnet_pub" {
-  default = ""
-}
-
-variable "db01_subnet_prv" {
-  description = "database 1 for api"
-  default     = ""
-}
-
-variable "db02_subnet_prv" {
-  description = "database 2 for api"
-  default     = ""
-}
-
-variable "db03_subnet_prv" {
-  description = "database 3 for api"
-  default     = ""
-}
-
-#variable "public_subnet_ids" {
-#  type    = "list"
-#  #default = "lb01_subnet_pub,lb02_subnet_pub,lb03_subnet_pub"
-#}
-
-#variable "private_subnet_ids" {
-#  type    = "list"
-#  #default = "ecs01_subnet_prv,ecs02_subnet_prv,ecs03_subnet_prv,db01_subnet_prv,db02_subnet_prv,db03_subnet_prv,cd01_subnet_prv,cd02_subnet_prv,cd03_subnet_prv"
-#}
-
 variable "vpn_config" {
   description = "Configuration options for VPN"
-  type        = map
+  type        = map(any)
 }
 
 variable "app_name" {
@@ -334,7 +138,7 @@ variable "app_name" {
 }
 
 variable "vpn_ip_address" {
-  type = string
+  type    = string
   default = ""
-  
+
 }

@@ -64,11 +64,11 @@ resource "aws_security_group" "vpc" {
   vpc_id = aws_vpc.this.id
 }
 
-resource "aws_security_group_rule" "vpc"{
-  type = "ingress"
-  from_port   = 0 
-  to_port     = 65535 
-  protocol    = "tcp"
-  security_group_id = aws_security_group.vpc.id
+resource "aws_security_group_rule" "vpc" {
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 65535
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.vpc.id
   source_security_group_id = aws_security_group.vpc.id
 }

@@ -15,7 +15,7 @@ resource "aws_route_table" "private" {
   count  = var.number_private_rt
   vpc_id = aws_vpc.this.id
   route {
-    cidr_block = var.open_cidr
+    cidr_block     = var.open_cidr
     nat_gateway_id = aws_nat_gateway.this[0].id
   }
   tags = {
@@ -24,25 +24,25 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route_table_association" "pub-assoc-api" {
-  count           = var.number_rt
-  subnet_id       = element(aws_subnet.public.*.id, count.index)
-  route_table_id  = element(aws_route_table.public.*.id, count.index)
+  count          = var.number_rt
+  subnet_id      = element(aws_subnet.public.*.id, count.index)
+  route_table_id = element(aws_route_table.public.*.id, count.index)
 }
 
 resource "aws_route_table_association" "prv-assoc-api" {
-  count           = var.number_rt
-  subnet_id       = element(aws_subnet.app_private.*.id, count.index)
-  route_table_id  = element(aws_route_table.private.*.id, count.index)
+  count          = var.number_rt
+  subnet_id      = element(aws_subnet.app_private.*.id, count.index)
+  route_table_id = element(aws_route_table.private.*.id, count.index)
 }
 
 resource "aws_route_table_association" "prv-assoc-db" {
-  count           = var.number_rt
-  subnet_id       = element(aws_subnet.db_private.*.id, count.index)
-  route_table_id  = element(aws_route_table.private.*.id, count.index)
+  count          = var.number_rt
+  subnet_id      = element(aws_subnet.db_private.*.id, count.index)
+  route_table_id = element(aws_route_table.private.*.id, count.index)
 }
 
 resource "aws_route_table_association" "prv-assoc-lb" {
-  count           = var.number_rt
-  subnet_id       = element(aws_subnet.lb_private.*.id, count.index)
-  route_table_id  = element(aws_route_table.private.*.id, count.index)
+  count          = var.number_rt
+  subnet_id      = element(aws_subnet.lb_private.*.id, count.index)
+  route_table_id = element(aws_route_table.private.*.id, count.index)
 }

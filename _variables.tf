@@ -1,6 +1,6 @@
 variable "aws" {
   description = "(Required) AWS credentials"
-  type        = map
+  type        = map(any)
 
   default = {
     region   = "us-east-1"
@@ -15,7 +15,7 @@ variable "aws_account_id" {
 }
 
 variable "principal_account_id" {
-  type        = map
+  type        = map(any)
   description = "map of root account numbers for logging"
 
   default = {
@@ -38,12 +38,12 @@ variable "availability_zones" {
 }
 
 variable "azs" {
-  type    = list
+  type    = list(any)
   default = ["us-east-1a", "us-east-1b", "us-east-1d"]
 }
 
 variable "loc" {
-  type        = map
+  type        = map(any)
   description = "region for the vpc"
 
   default = {
@@ -103,7 +103,7 @@ variable "vpc_id" {
 
 variable "management" {
   description = "(Optional) The management VPC to peer with."
-  type        = map
+  type        = map(any)
 
   default = {
     vpc_id         = "vpc-04d4f17f"
@@ -114,7 +114,7 @@ variable "management" {
 
 variable "vpc_ids" {
   description = "list of vpc ids"
-  type        = list
+  type        = list(any)
   default     = ["api-east-vpc"]
 }
 
@@ -124,12 +124,12 @@ variable "vpn_id" {
 
 variable "module_config" {
   description = "Configuration options for the Module"
-  type        = map
+  type        = map(any)
 }
 
 variable "vpn_config" {
   description = "Configuration options for VPN"
-  type        = map
+  type        = map(any)
 }
 
 variable "vpc_attach" {
@@ -208,7 +208,7 @@ variable "public_route_table_ids" {
 
 variable "public_eip_ngw_id" {
   description = "public eip for the nat gateway"
-  type        = list
+  type        = list(any)
   default     = ["api-east-eip-ngw"]
 }
 
@@ -249,37 +249,37 @@ variable "base_private_api_cidr" {
 
 variable "cloud_ts_cidr" {
   description = "cidr for cloud terminial server"
-  type        = list
+  type        = list(any)
   default     = [""]
 }
 
 variable "vpc_mngmt_cidr" {
   description = "cidr for cloud terminial server"
-  type        = list
+  type        = list(any)
   default     = [""]
 }
 
 variable "api_pub_subnets" {
   description = "ecs public subnets for the vpc"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
 variable "api_prv_subnets" {
   description = "ecs private subnets for the vpc"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
 variable "db_prv_subnets" {
   description = "database private subnets for the vpc"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
 variable "lb_prv_subnets" {
   description = "load balancer private subnets for the vpc"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
@@ -291,19 +291,19 @@ variable "vpn_mngmt_cgw_id" {
 
 variable "arcsight_logsrc_cidr" {
   description = "cidr for arcsight logsrc"
-  type        = list
+  type        = list(any)
   default     = [""]
 }
 
 variable "domain_member_cidr" {
   description = "cidr for domain member"
-  type        = list
+  type        = list(any)
   default     = [""]
 }
 
 variable "epo_cidr" {
   description = "cidr for cloud terminial server"
-  type        = list
+  type        = list(any)
   default     = [""]
 }
 
@@ -410,7 +410,7 @@ variable "ssh_port" {
 }
 
 variable "private_db_subnet_ids" {
-  type    = list
+  type    = list(any)
   default = []
 }
 
@@ -479,13 +479,13 @@ variable "lb03_subnet_az" {
 
 variable "ecr_repositories" {
   description = "(Optional) list of ECR repositories to create for use with ECS"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
 variable "ecs" {
   description = "(Required) map of variables for ECS"
-  type        = map
+  type        = map(any)
 
   default = {
     //instance_type    = "c4.large"
@@ -534,28 +534,28 @@ variable "number_vpn_rt_propagation" {
 }
 
 variable "private_route_tables" {
-  type    = list
+  type    = list(any)
   default = ["prv-db01", "prv-db02", "prv-db03", "prv-ecs01", "prv-ecs02", "prv-ecs03", "prv-lb01", "prv-lb02", "prv-lb03"]
 }
 
 variable "public_route_tables" {
-  type    = list
+  type    = list(any)
   default = ["pub-ecs01", "pub-ecs02", "pub-ecs03"]
 }
 
 variable "vgw_ids" {
-  type        = list
+  type        = list(any)
   description = "list of virtual gateways for propagation"
   default     = []
 }
 
 variable "team" {
-  type    = list
+  type    = list(any)
   default = ["cloud"]
 }
 
 variable "tags" {
-  type        = map
+  type        = map(any)
   description = "optional default tags"
 
   default = {
@@ -585,13 +585,13 @@ variable "bucket_name" {
 
 variable "sqs_queues" {
   description = "(Optional) list of SQS queues to create"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
 variable "sns_topics" {
   description = "(Optional) list of SNS topics to create"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
@@ -704,7 +704,7 @@ variable "owner" {
 }
 
 variable "env" {
-  type        = map
+  type        = map(any)
   description = "enviornment"
 
   default = {
@@ -743,7 +743,7 @@ variable "num_route_tables" {
 }
 
 variable "api_pub_tags" {
-  type = map
+  type = map(any)
 
   default = {
     "Name"        = "api-ecs-pub-1-subnet"
@@ -754,7 +754,7 @@ variable "api_pub_tags" {
 }
 
 variable "api_prv_tags" {
-  type = map
+  type = map(any)
 
   default = {
     "Name"        = "api-ecs-prv-1-subnet"
@@ -765,7 +765,7 @@ variable "api_prv_tags" {
 }
 
 variable "lb_tags" {
-  type = map
+  type = map(any)
 
   default = {
     "Name"        = "api-lb-pub-1-subnet"
@@ -776,7 +776,7 @@ variable "lb_tags" {
 }
 
 variable "custdb_tags" {
-  type = map
+  type = map(any)
 
   default = {
     "Name"        = "api-custdb-prv-1-subnet"
@@ -787,7 +787,7 @@ variable "custdb_tags" {
 }
 
 variable "emaildb_tags" {
-  type = map
+  type = map(any)
 
   default = {
     "Name"        = "api-emaildb-prv-1-subnet"
@@ -798,7 +798,7 @@ variable "emaildb_tags" {
 }
 
 variable "textdb_tags" {
-  type = map
+  type = map(any)
 
   default = {
     "Name"        = "api-textdb-prv-1-subnet"
@@ -809,7 +809,7 @@ variable "textdb_tags" {
 }
 
 variable "voicedb_tags" {
-  type = map
+  type = map(any)
 
   default = {
     "Name"        = "api-voicedb-prv-1-subnet"
@@ -820,7 +820,7 @@ variable "voicedb_tags" {
 }
 
 variable "rt_prv_tags" {
-  type = map
+  type = map(any)
 
   default = {
     "Name"        = "api-prv-1-prv-rt"
@@ -831,7 +831,7 @@ variable "rt_prv_tags" {
 }
 
 variable "rt_pub_tags" {
-  type = map
+  type = map(any)
 
   default = {
     "Name"        = "api-pub-1-prv-rt"
@@ -1084,17 +1084,17 @@ variable "vpc_config" {
 
 variable "vpc_cidr" {
   description = "cidr for vpc"
-  type        = list
+  type        = list(any)
   default     = [""]
 }
 
 variable "public_subnet_cidr" {
-  type    = list
+  type    = list(any)
   default = []
 }
 
 variable "private_subnet_cidr" {
-  type    = list
+  type    = list(any)
   default = []
 }
 
@@ -1223,7 +1223,7 @@ variable "reuse_nat_ips" {
 
 variable "external_nat_ip_ids" {
   description = "List of EIP IDs to be assigned to the NAT Gateways (used in combination with reuse_nat_ips)"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
@@ -1250,7 +1250,7 @@ variable "enable_vpn_gateway" {
 
 variable "private_subnets" {
   description = "private subnets for the vpc"
-  type        = list
+  type        = list(any)
   default     = []
 }
 
