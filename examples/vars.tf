@@ -51,12 +51,12 @@ variable "tags_default" {
   description = "optional default tags"
 
   default = {
-    Name       = "default-api"
-    Owner      = "cloudops@energy.com"
-    CostCenter = "N/A"
-    vpc        = "default"
-    env        = "prd"
-    project    = "default"
+    # Name       = "default-api"
+    # Owner      = "cloudops@energy.com"
+    # CostCenter = "N/A"
+    # vpc        = "default"
+    # env        = "prd"
+    # project    = "default"
   }
 }
 
@@ -79,8 +79,10 @@ variable "environment" {
   default = ""
 }
 
-variable "application" {
-  type = string
+variable "app_name" {
+  type        = string
+  description = "Application Name"
+  default     = ""
 }
 
 variable "cost_center" {

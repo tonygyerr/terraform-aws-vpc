@@ -1,5 +1,5 @@
-resource "aws_security_group" "app" {
-  name        = "${var.project}-${var.environment}-prv-sg"
+resource "aws_security_group" "vpc" {
+  name        = "${var.app_name}-${var.environment}-prv-sg"
   description = "allow private incoming http connections"
 
   lifecycle {
@@ -61,14 +61,14 @@ resource "aws_security_group" "app" {
     protocol    = -1
     cidr_blocks = [var.open_cidr]
   }
-  vpc_id = aws_vpc.api-vpc.id
+  vpc_id = aws_vpc.this.id
 }
 
-resource "aws_security_group_rule" "app"{
+resource "aws_security_group_rule" "vpc"{
   type = "ingress"
   from_port   = 0 
   to_port     = 65535 
   protocol    = "tcp"
-  security_group_id = aws_security_group.app.id
-  source_security_group_id = aws_security_group.app.id
+  security_group_id = aws_security_group.vpc.id
+  source_security_group_id = aws_security_group.vpc.id
 }

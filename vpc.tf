@@ -1,7 +1,4 @@
-/*
- main vpc
-*/
-resource "aws_vpc" "api-vpc" {
+resource "aws_vpc" "this" {
   cidr_block           = var.vpc_config["cidr"]
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -10,7 +7,7 @@ resource "aws_vpc" "api-vpc" {
   tags = merge(
     data.null_data_source.merged_tags.outputs,
     map(
-      "Name", lookup(var.vpc_config, "name_prefix", "")
+      "Name", lookup(var.vpc_config, "app_name", "${var.app_name}-vpc")
     )
   )
 }

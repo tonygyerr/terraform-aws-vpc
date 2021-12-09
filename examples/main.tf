@@ -1,9 +1,8 @@
 module "vpc" {
   source                   = "git::ssh://git@github.com:tonygyerr/terraform-aws-vpc.git"
-  # source                   = "../"
   api_prv_subnets          = var.api_prv_subnets
   api_pub_subnets          = var.api_pub_subnets
-  application              = var.application
+  app_name                 = var.app_name
   azs                      = var.azs
   cidr                     = var.vpc_cidr
   db_prv_subnets           = var.db_prv_subnets

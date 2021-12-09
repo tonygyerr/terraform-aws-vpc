@@ -141,7 +141,7 @@ variable "vpc_attach" {
 variable "cgw_id" {
   type        = string
   description = "(Optional) The ID of the VPN Customer Gateway to attach to this VPC"
-  default     = "api-east-cgw"
+  default     = ""
 }
 
 variable "vpn_bgp_asn" {
@@ -559,15 +559,14 @@ variable "tags" {
   description = "optional default tags"
 
   default = {
-    Name       = "api"
-    Owner      = "cloudops@energy.com"
-    CostCenter = "N/A"
-    vpc        = "api-east-vpc"
-    env        = "dev"
-    project    = "app"
+    # Name       = "api"
+    # Owner      = "cloudops@energy.com"
+    # CostCenter = "N/A"
+    # vpc        = "api-east-vpc"
+    # env        = "dev"
+    # project    = "app"
   }
 }
-
 
 variable "project" {
   type    = string
@@ -687,10 +686,6 @@ variable "visibility" {
 }
 
 variable "environment" {
-  type = string
-}
-
-variable "application" {
   type = string
 }
 
@@ -1342,7 +1337,6 @@ variable "db_subnet_group_name" {
   type        = string
   default     = ""
 }
-
 
 variable "app_name" {
   type        = string
