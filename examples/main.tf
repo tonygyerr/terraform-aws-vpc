@@ -19,7 +19,7 @@ module "vpc" {
   module_config              = var.module_config
   region                     = var.aws_region
   single_nat_gateway         = true
-  vpc_config                 = var.vpc_configq
+  vpc_config                 = var.vpc_config
   vpc_id                     = module.vpc.vpc_id
   vpn_config                 = var.vpn_config
   vpn_ip_address             = var.vpn_ip_address
