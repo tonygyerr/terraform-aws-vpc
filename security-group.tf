@@ -17,14 +17,7 @@ resource "aws_security_group" "vpc" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = var.api_pub_subnets
-  }
-
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = var.db_prv_subnets
+    cidr_blocks = var.private_subnets
   }
 
   ingress {

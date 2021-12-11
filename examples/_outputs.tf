@@ -19,8 +19,8 @@ output "private_db_subnets" {
   value = [module.vpc.private_db_subnets]
 }
 
-output "private_lb_subnets" {
-  value = [module.vpc.private_lb_subnets]
+output "private_elasticache_subnets" {
+  value = [module.vpc.private_elasticache_subnets]
 }
 
 output "api_security_group_id" {

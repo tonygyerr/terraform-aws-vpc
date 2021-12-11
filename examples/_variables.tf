@@ -45,7 +45,7 @@ variable "tags" {
 variable "tags_default" {
   type        = map(string)
   description = "optional default tags"
-  default = {}
+  default     = {}
 }
 
 variable "environment" {
@@ -96,13 +96,13 @@ variable "domain_name_servers" {
   default     = ""
 }
 
-variable "api_pub_subnets" {
+variable "public_subnets" {
   description = "public subnets for the vpc"
   type        = list(string)
   default     = []
 }
 
-variable "api_prv_subnets" {
+variable "private_subnets" {
   description = "private subnets for the vpc"
   type        = list(string)
   default     = []
@@ -114,7 +114,7 @@ variable "db_prv_subnets" {
   default     = []
 }
 
-variable "lb_prv_subnets" {
+variable "elasticache_prv_subnets" {
   description = "load balancer private subnets for the vpc"
   type        = list(string)
   default     = []
@@ -141,4 +141,24 @@ variable "vpn_ip_address" {
   type    = string
   default = ""
 
+}
+
+variable "amount_private_db_subnets" {
+  type    = string
+  default = null
+}
+
+variable "amount_public_subnets" {
+  type    = string
+  default = null
+}
+
+variable "amount_private_subnets" {
+  type    = string
+  default = null
+}
+
+variable "amount_private_lb_subnets" {
+  type    = string
+  default = null
 }

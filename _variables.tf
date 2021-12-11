@@ -155,51 +155,6 @@ variable "vpn_ip_address" {
   default     = ""
 }
 
-variable "ecs01_subnet_prv" {
-  #default = "ecs01_subnet_prv"
-}
-
-variable "ecs02_subnet_prv" {
-  #default = "ecs02_subnet_prv"
-}
-
-variable "ecs03_subnet_prv" {
-  #default = "ecs03_subnet_prv"
-}
-
-variable "ecs01_subnet_pub" {
-  #default = "ecs01_subnet_pub"
-}
-
-variable "ecs02_subnet_pub" {
-  #default = "ecs02_subnet_pub"
-}
-
-variable "ecs03_subnet_pub" {
-  #default = "ecs03_subnet_pub"
-}
-
-variable "db01_subnet_prv" {
-  description = "database 1 for api"
-  #default     = "db01_subnet_prv"
-}
-
-variable "db02_subnet_prv" {
-  description = "database 2 for api"
-  #default     = "db02_subnet_prv"
-}
-
-variable "db03_subnet_prv" {
-  description = "database 3 for api"
-  #default     = "db03_subnet_prv"
-}
-
-variable "private_route_table_ids" {
-  description = "private route tables for the vpc"
-  type        = string
-  default     = "ecs01_subnet_prv,ecs02_subnet_prv,ecs03_subnet_prv,ecs01_subnet_pub,ecs02_subnet_pub,ecs03_subnet_pub,db01_subnet_prv,db02_subnet_prv,db03_subnet_prv"
-}
-
 variable "public_route_table_ids" {
   description = "public route tables for the vpc"
   type        = string
@@ -217,56 +172,14 @@ variable "vpn_dest_cidr_block" {
   default = ""
 }
 
-variable "cidr" {
-  description = "cidr for vpc"
-  type        = string
-  default     = ""
-}
-
-variable "base_cidr" {
-  description = "cidr for vpc" #this variable is utilized in the locals.tf
-  type        = string
-  default     = ""
-}
-
-variable "base_cidr_pub" {
-  description = "cidr for vpc"
-  type        = string
-  default     = ""
-}
-
-variable "base_cidr_prv" {
-  description = "cidr for vpc"
-  type        = string
-  default     = ""
-}
-
-variable "base_private_api_cidr" {
-  description = "cidr for vpc"
-  type        = string
-  default     = ""
-}
-
-variable "cloud_ts_cidr" {
-  description = "cidr for cloud terminial server"
-  type        = list(any)
-  default     = [""]
-}
-
-variable "vpc_mngmt_cidr" {
-  description = "cidr for cloud terminial server"
-  type        = list(any)
-  default     = [""]
-}
-
-variable "api_pub_subnets" {
-  description = "ecs public subnets for the vpc"
+variable "public_subnets" {
+  description = "public subnets for the vpc"
   type        = list(any)
   default     = []
 }
 
-variable "api_prv_subnets" {
-  description = "ecs private subnets for the vpc"
+variable "private_subnets" {
+  description = "private subnets for the vpc"
   type        = list(any)
   default     = []
 }
@@ -277,231 +190,105 @@ variable "db_prv_subnets" {
   default     = []
 }
 
-variable "lb_prv_subnets" {
-  description = "load balancer private subnets for the vpc"
+variable "elasticache_prv_subnets" {
+  description = "elasticache private subnets for the vpc"
   type        = list(any)
   default     = []
 }
 
-variable "vpn_mngmt_cgw_id" {
-  description = "management customer gateway id"
-  type        = string
-  default     = ""
-}
+# variable "private_db_subnet_ids" {
+#   type    = list(any)
+#   default = []
+# }
 
-variable "arcsight_logsrc_cidr" {
-  description = "cidr for arcsight logsrc"
-  type        = list(any)
-  default     = [""]
-}
+# variable "lb01_prv_subnet_cidr" {
+#   description = "cidr for private service load balancer 01"
+#   type        = string
+#   default     = ""
+# }
 
-variable "domain_member_cidr" {
-  description = "cidr for domain member"
-  type        = list(any)
-  default     = [""]
-}
+# variable "lb02_prv_subnet_cidr" {
+#   description = "cidr for private service load balancer 02"
+#   type        = string
+#   default     = ""
+# }
 
-variable "epo_cidr" {
-  description = "cidr for cloud terminial server"
-  type        = list(any)
-  default     = [""]
-}
+# variable "lb03_prv_subnet_cidr" {
+#   description = "cidr for private service load balancer 03"
+#   type        = string
+#   default     = ""
+# }
 
-variable "ecs01_subnet_pub_cidr" {
-  description = "cidr for ecs 01 public subnet zone 1"
-  type        = string
-  default     = ""
-}
+# variable "ecs01_subnet_az" {
+#   description = "az for the content delivery public subnet 1"
+#   default     = "us-east-1a"
+# }
 
-variable "ecs02_subnet_pub_cidr" {
-  description = "cidr for ecs 02 public subnet zone 2"
-  type        = string
-  default     = ""
-}
+# variable "ecs02_subnet_az" {
+#   description = "az for the content delivery public subnet 2"
+#   default     = "us-east-1b"
+# }
 
-variable "ecs03_subnet_pub_cidr" {
-  description = "cidr for ecs 03 public subnet zone 3"
-  type        = string
-  default     = ""
-}
+# variable "ecs03_subnet_az" {
+#   description = "az for the content delivery public subnet 3"
+#   default     = "us-east-1d"
+# }
 
-variable "ecs01_subnet_prv_cidr" {
-  description = "cidr for ecs 01 private subnet zone 1"
-  type        = string
-  default     = ""
-}
+# variable "db01_subnet_az" {
+#   description = "az for db01 private subnet"
+#   default     = "us-east-1a"
+# }
 
-variable "ecs02_subnet_prv_cidr" {
-  description = "cidr for ecs 02 private subnet zone 2"
-  type        = string
-  default     = ""
-}
+# variable "db02_subnet_az" {
+#   description = "az for db02 private subnet"
+#   default     = "us-east-1b"
+# }
 
-variable "ecs03_subnet_prv_cidr" {
-  description = "cidr for ecs 03 private subnet zone 3"
-  type        = string
-  default     = ""
-}
+# variable "db03_subnet_az" {
+#   description = "az for db03 private subnet 5"
+#   default     = "us-east-1d"
+# }
 
-variable "db01_subnet_prv_cidr" {
-  description = "cidr for db 01 public subnet zone 1"
-  type        = string
-  default     = ""
-}
+# variable "lb01_subnet_az" {
+#   description = "az for the content delivery public subnet 1"
+#   default     = "us-east-1a"
+# }
 
-variable "db02_subnet_prv_cidr" {
-  description = "cidr for db 02 public subnet zone 2"
-  type        = string
-  default     = ""
-}
+# variable "lb02_subnet_az" {
+#   description = "az for the content delivery public subnet 2"
+#   default     = "us-east-1b"
+# }
 
-variable "db03_subnet_prv_cidr" {
-  description = "cidr for db 03 public subnet zone 3"
-  type        = string
-  default     = ""
-}
+# variable "lb03_subnet_az" {
+#   description = "az for the content delivery public subnet 3"
+#   default     = "us-east-1d"
+# }
 
-variable "lb01_subnet_prv_cidr" {
-  description = "cidr for lb 01 public subnet zone 1"
-  type        = string
-  default     = ""
-}
+# variable "ecr_repositories" {
+#   description = "(Optional) list of ECR repositories to create for use with ECS"
+#   type        = list(any)
+#   default     = []
+# }
 
-variable "lb02_subnet_prv_cidr" {
-  description = "cidr for lb 02 public subnet zone 2"
-  type        = string
-  default     = ""
-}
+# variable "ecs" {
+#   description = "(Required) map of variables for ECS"
+#   type        = map(any)
 
-variable "lb03_subnet_prv_cidr" {
-  description = "cidr for lb 03 public subnet zone 3"
-  type        = string
-  default     = ""
-}
+#   default = {
+#     //instance_type    = "c4.large"
+#     instance_type             = "t2.micro"
+#     min_size                  = 4
+#     max_size                  = 8
+#     desired_capacity          = 4
+#     health_check_type         = "EC2"
+#     health_check_grace_period = 300
+#   }
+# }
 
-variable "custdb_port" {
-  type    = string
-  default = "3306"
-}
-
-variable "emaildb_port" {
-  type    = string
-  default = "3306"
-}
-
-variable "textdb_port" {
-  type    = string
-  default = "3306"
-}
-
-variable "voicedb_port" {
-  type    = string
-  default = "3306"
-}
-
-variable "rdp_port" {
-  type    = string
-  default = "3389"
-}
-
-variable "ssh_port" {
-  type    = string
-  default = "22"
-}
-
-variable "private_db_subnet_ids" {
-  type    = list(any)
-  default = []
-}
-
-variable "lb01_prv_subnet_cidr" {
-  description = "cidr for private service load balancer 01"
-  type        = string
-  default     = ""
-}
-
-variable "lb02_prv_subnet_cidr" {
-  description = "cidr for private service load balancer 02"
-  type        = string
-  default     = ""
-}
-
-variable "lb03_prv_subnet_cidr" {
-  description = "cidr for private service load balancer 03"
-  type        = string
-  default     = ""
-}
-
-variable "ecs01_subnet_az" {
-  description = "az for the content delivery public subnet 1"
-  default     = "us-east-1a"
-}
-
-variable "ecs02_subnet_az" {
-  description = "az for the content delivery public subnet 2"
-  default     = "us-east-1b"
-}
-
-variable "ecs03_subnet_az" {
-  description = "az for the content delivery public subnet 3"
-  default     = "us-east-1d"
-}
-
-variable "db01_subnet_az" {
-  description = "az for db01 private subnet"
-  default     = "us-east-1a"
-}
-
-variable "db02_subnet_az" {
-  description = "az for db02 private subnet"
-  default     = "us-east-1b"
-}
-
-variable "db03_subnet_az" {
-  description = "az for db03 private subnet 5"
-  default     = "us-east-1d"
-}
-
-variable "lb01_subnet_az" {
-  description = "az for the content delivery public subnet 1"
-  default     = "us-east-1a"
-}
-
-variable "lb02_subnet_az" {
-  description = "az for the content delivery public subnet 2"
-  default     = "us-east-1b"
-}
-
-variable "lb03_subnet_az" {
-  description = "az for the content delivery public subnet 3"
-  default     = "us-east-1d"
-}
-
-variable "ecr_repositories" {
-  description = "(Optional) list of ECR repositories to create for use with ECS"
-  type        = list(any)
-  default     = []
-}
-
-variable "ecs" {
-  description = "(Required) map of variables for ECS"
-  type        = map(any)
-
-  default = {
-    //instance_type    = "c4.large"
-    instance_type             = "t2.micro"
-    min_size                  = 4
-    max_size                  = 8
-    desired_capacity          = 4
-    health_check_type         = "EC2"
-    health_check_grace_period = 300
-  }
-}
-
-variable "api_flavor" {
-  description = "ecs instance type"
-  default     = "r3.large"
-}
+# variable "api_flavor" {
+#   description = "ecs instance type"
+#   default     = "r3.large"
+# }
 
 variable "number_az" {
   type    = string
@@ -533,26 +320,26 @@ variable "number_vpn_rt_propagation" {
   default = "1"
 }
 
-variable "private_route_tables" {
-  type    = list(any)
-  default = ["prv-db01", "prv-db02", "prv-db03", "prv-ecs01", "prv-ecs02", "prv-ecs03", "prv-lb01", "prv-lb02", "prv-lb03"]
-}
+# variable "private_route_tables" {
+#   type    = list(any)
+#   default = ["prv-db01", "prv-db02", "prv-db03", "prv-ecs01", "prv-ecs02", "prv-ecs03", "prv-lb01", "prv-lb02", "prv-lb03"]
+# }
 
-variable "public_route_tables" {
-  type    = list(any)
-  default = ["pub-ecs01", "pub-ecs02", "pub-ecs03"]
-}
+# variable "public_route_tables" {
+#   type    = list(any)
+#   default = ["pub-ecs01", "pub-ecs02", "pub-ecs03"]
+# }
 
-variable "vgw_ids" {
-  type        = list(any)
-  description = "list of virtual gateways for propagation"
-  default     = []
-}
+# variable "vgw_ids" {
+#   type        = list(any)
+#   description = "list of virtual gateways for propagation"
+#   default     = []
+# }
 
-variable "team" {
-  type    = list(any)
-  default = ["cloud"]
-}
+# variable "team" {
+#   type    = list(any)
+#   default = ["cloud"]
+# }
 
 variable "tags" {
   type        = map(any)
@@ -613,32 +400,32 @@ variable "netnum_private_api" {
 
 variable "netnum_private_db" {
   type    = string
-  default = "9"
+  default = null
 }
 
 variable "netnum_private_lb" {
   type    = string
-  default = "12"
+  default = null
 }
 
-variable "amount_private_db_subnets" {
+variable "amount_db_subnets" {
   type    = string
-  default = "3"
+  default = null
 }
 
-variable "amount_public_api_subnets" {
+variable "amount_public_subnets" {
   type    = string
-  default = "3"
+  default = null
 }
 
-variable "amount_private_api_subnets" {
+variable "amount_private_subnets" {
   type    = string
-  default = "3"
+  default = null
 }
 
-variable "amount_private_lb_subnets" {
+variable "amount_elasticache_subnets" {
   type    = string
-  default = "3"
+  default = null
 }
 
 variable "newbits" {
@@ -732,113 +519,9 @@ variable "num_subnets" {
   default = "9"
 }
 
-variable "route_tables" {
-  type    = string
-  default = "prv-ecs01,prv-ecs02,prv-ecs03,pub-ecs01,pub-ecs02,pub-ecs03,prv-db01,prv-db02,prv-db03,prv-lb01"
-}
-
 variable "num_route_tables" {
   type    = string
   default = "9"
-}
-
-variable "api_pub_tags" {
-  type = map(any)
-
-  default = {
-    "Name"        = "api-ecs-pub-1-subnet"
-    "environment" = "prd"
-    "project"     = "api"
-    "role"        = "ecs"
-  }
-}
-
-variable "api_prv_tags" {
-  type = map(any)
-
-  default = {
-    "Name"        = "api-ecs-prv-1-subnet"
-    "environment" = "prd"
-    "project"     = "api"
-    "role"        = "ecs"
-  }
-}
-
-variable "lb_tags" {
-  type = map(any)
-
-  default = {
-    "Name"        = "api-lb-pub-1-subnet"
-    "environment" = "prd"
-    "project"     = "api"
-    "role"        = "lb"
-  }
-}
-
-variable "custdb_tags" {
-  type = map(any)
-
-  default = {
-    "Name"        = "api-custdb-prv-1-subnet"
-    "environment" = "prd"
-    "project"     = "api"
-    "role"        = "sql"
-  }
-}
-
-variable "emaildb_tags" {
-  type = map(any)
-
-  default = {
-    "Name"        = "api-emaildb-prv-1-subnet"
-    "environment" = "prd"
-    "project"     = "api"
-    "role"        = "sql"
-  }
-}
-
-variable "textdb_tags" {
-  type = map(any)
-
-  default = {
-    "Name"        = "api-textdb-prv-1-subnet"
-    "environment" = "prd"
-    "project"     = "api"
-    "role"        = "sql"
-  }
-}
-
-variable "voicedb_tags" {
-  type = map(any)
-
-  default = {
-    "Name"        = "api-voicedb-prv-1-subnet"
-    "environment" = "prd"
-    "project"     = "api"
-    "role"        = "sql"
-  }
-}
-
-variable "rt_prv_tags" {
-  type = map(any)
-
-  default = {
-    "Name"        = "api-prv-1-prv-rt"
-    "environment" = "prd"
-    "project"     = "api"
-    "role"        = "rt"
-  }
-}
-
-variable "rt_pub_tags" {
-  type = map(any)
-
-  default = {
-    "Name"        = "api-pub-1-prv-rt"
-    "environment" = "prd"
-    "project"     = "api"
-    "role"        = "rt"
-  }
 }
 
 variable "extra_tags" {
@@ -852,231 +535,6 @@ variable "wait_for_capacity_timeout" {
   default = "10m"
 }
 
-variable "api_vpc_flow_log_arn" {
-  description = "api vpc flow log 'arn:aws:iam::123456789012:role/flowlogsRole'"
-  type        = string
-  default     = "arn:aws:iam::123456789012:role/flowlogsRole"
-}
-
-variable "image_api_cust_list" {
-  type    = string
-  default = "api-customer-list"
-}
-
-variable "image_api_config_server" {
-  type    = string
-  default = "api-config-server"
-}
-
-variable "image_api_cust_notification" {
-  type    = string
-  default = "api-customer-notification"
-}
-
-variable "image_api_email_notification" {
-  type    = string
-  default = "api-email-notification"
-}
-
-variable "image_api_http_client_import_preference" {
-  type    = string
-  default = "api-http-client-import-preference"
-}
-
-variable "image_api_log_contact" {
-  type    = string
-  default = "api-log-contact"
-}
-
-variable "image_api_message_controller" {
-  type    = string
-  default = "api-message-controller"
-}
-
-variable "image_api_process_cust_response" {
-  type    = string
-  default = "api-process-customer-response"
-}
-
-variable "image_api_text_notification" {
-  type    = string
-  default = "api-text-notification"
-}
-
-variable "image_api_voice_notification" {
-  type    = string
-  default = "api-voice-notification"
-}
-
-variable "container_api_cust_list" {
-  type    = string
-  default = "out-customer-list"
-}
-
-variable "container_api_config_server" {
-  type    = string
-  default = "out-config-serv"
-}
-
-variable "container_api_cust_notification" {
-  type    = string
-  default = "out-cust-notif"
-}
-
-variable "container_api_email_notification" {
-  type    = string
-  default = "out-email-notif"
-}
-
-variable "container_api_http_client_import_preference" {
-  type    = string
-  default = "out-http-client-import-preference"
-}
-
-variable "container_api_log_contact" {
-  type    = string
-  default = "out-log-contact"
-}
-
-variable "container_api_message_controller" {
-  type    = string
-  default = "out-message-controller"
-}
-
-variable "container_api_process_cust_response" {
-  type    = string
-  default = "out-process-cust-response"
-}
-
-variable "container_api_text_notification" {
-  type    = string
-  default = "out-text-notif"
-}
-
-variable "container_api_voice_notification" {
-  type    = string
-  default = "out-voice-notif"
-}
-
-variable "host_port" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_cust_list" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_config_server" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_cust_notification" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_email_notification" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_http_client_import_preference" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_log_contact" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_message_controller" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_process_cust_response" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_text_notification" {
-  type    = string
-  default = "8080"
-}
-
-variable "host_port_api_voice_notification" {
-  type    = string
-  default = "8080"
-}
-
-variable "container_port" {
-  type    = string
-  default = "2368"
-}
-
-variable "container_port_api_cust_list" {
-  type    = string
-  default = "2368"
-}
-
-variable "container_port_api_config_server" {
-  type    = string
-  default = "2368"
-}
-
-variable "container_port_api_cust_notification" {
-  type    = string
-  default = "2368"
-}
-
-variable "container_port_api_email_notification" {
-  type    = string
-  default = "2368"
-}
-
-variable "container_port_api_http_client_import_preference" {
-  type    = string
-  default = "2368"
-}
-
-variable "container_port_api_log_contact" {
-  type    = string
-  default = "2368"
-}
-
-variable "container_port_api_message_controller" {
-  type    = string
-  default = "2368"
-}
-
-variable "container_port_api_process_cust_response" {
-  type    = string
-  default = "2368e"
-}
-
-variable "container_port_api_text_notification" {
-  type    = string
-  default = "2368"
-}
-
-variable "cpu" {
-  type    = string
-  default = "256"
-}
-
-variable "memory" {
-  type    = string
-  default = "512"
-}
-
-variable "container_port_api_voice_notification" {
-  type    = string
-  default = "2368"
-}
 variable "vpc_config" {
   description = "configuration option for vpc"
   type        = map(string)
@@ -1183,7 +641,7 @@ variable "monitoring_role_arn" {
 
 variable "monitoring_role_name" {
   description = "Name of the IAM role which will be created when create_monitoring_role is enabled."
-  default     = "rds-monitoring-role"
+  default     = ""
 }
 
 variable "create_monitoring_role" {
@@ -1245,13 +703,6 @@ variable "map_public_ip_on_launch" {
 variable "enable_vpn_gateway" {
   description = "Should be true if you want to create a new VPN Gateway resource and attach it to the VPC"
   default     = false
-}
-
-
-variable "private_subnets" {
-  description = "private subnets for the vpc"
-  type        = list(any)
-  default     = []
 }
 
 variable "open_cidr" {

@@ -15,15 +15,15 @@ output "public_api_subnets" {
 }
 
 output "private_api_subnets" {
-  value = aws_subnet.app_private.*.id
+  value = aws_subnet.private.*.id
 }
 
 output "private_db_subnets" {
   value = aws_subnet.db_private.*.id
 }
 
-output "private_lb_subnets" {
-  value = aws_subnet.lb_private.*.id
+output "private_elasticache_subnets" {
+  value = aws_subnet.elasticache_private.*.id
 }
 
 output "api_security_group_id" {
