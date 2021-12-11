@@ -3,10 +3,6 @@ output "vpc_id" {
   value       = module.vpc.vpc_id
 }
 
-output "db_subnet_group_name" {
-  value = module.vpc.db_subnet_group_name
-}
-
 output "public_api_subnets" {
   value = [module.vpc.public_api_subnets]
 }
