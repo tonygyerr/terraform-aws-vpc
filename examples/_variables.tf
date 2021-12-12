@@ -61,23 +61,18 @@ variable "app_name" {
 
 variable "aws_region" {
   description = "ec2 region for the vpc"
-  default     = "us-east-1"
+  default     = ""
 }
 
-variable "region" {
-  description = "ec2 region for the vpc"
-  default     = "east"
-}
+# variable "default_vpc" {
+#   type    = string
+#   default = "default-api"
+# }
 
-variable "default_vpc" {
-  type    = string
-  default = "default-api"
-}
-
-variable "azs" {
-  type    = list(string)
-  default = ["us-east-1a", "us-east-1b", "us-east-1d"]
-}
+# variable "azs" {
+#   type    = list(string)
+#   default = ["us-east-1a", "us-east-1b", "us-east-1d"]
+# }
 
 variable "name" {
   description = "The domain name to setup DHCP for"
@@ -87,7 +82,7 @@ variable "name" {
 variable "domain_name" {
   description = "The internal DNS name to use with services"
   type        = string
-  default     = "mywebsite.com corp.dir.energy.com energy.com ec2.internal"
+  default     = ""
 }
 
 variable "domain_name_servers" {

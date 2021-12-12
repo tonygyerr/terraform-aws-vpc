@@ -26,20 +26,14 @@ variable "principal_account_id" {
   }
 }
 
-variable "aws_key_name" {
-  type        = string
-  description = "aws key name"
-  default     = "terraform"
-}
-
 variable "availability_zones" {
   type    = string
-  default = "us-east-1a,us-east-1b,us-east-1d"
+  default = ""
 }
 
 variable "azs" {
   type    = list(any)
-  default = ["us-east-1a", "us-east-1b", "us-east-1d"]
+  default = [""]
 }
 
 variable "loc" {
@@ -195,100 +189,6 @@ variable "elasticache_prv_subnets" {
   type        = list(any)
   default     = []
 }
-
-# variable "private_db_subnet_ids" {
-#   type    = list(any)
-#   default = []
-# }
-
-# variable "lb01_prv_subnet_cidr" {
-#   description = "cidr for private service load balancer 01"
-#   type        = string
-#   default     = ""
-# }
-
-# variable "lb02_prv_subnet_cidr" {
-#   description = "cidr for private service load balancer 02"
-#   type        = string
-#   default     = ""
-# }
-
-# variable "lb03_prv_subnet_cidr" {
-#   description = "cidr for private service load balancer 03"
-#   type        = string
-#   default     = ""
-# }
-
-# variable "ecs01_subnet_az" {
-#   description = "az for the content delivery public subnet 1"
-#   default     = "us-east-1a"
-# }
-
-# variable "ecs02_subnet_az" {
-#   description = "az for the content delivery public subnet 2"
-#   default     = "us-east-1b"
-# }
-
-# variable "ecs03_subnet_az" {
-#   description = "az for the content delivery public subnet 3"
-#   default     = "us-east-1d"
-# }
-
-# variable "db01_subnet_az" {
-#   description = "az for db01 private subnet"
-#   default     = "us-east-1a"
-# }
-
-# variable "db02_subnet_az" {
-#   description = "az for db02 private subnet"
-#   default     = "us-east-1b"
-# }
-
-# variable "db03_subnet_az" {
-#   description = "az for db03 private subnet 5"
-#   default     = "us-east-1d"
-# }
-
-# variable "lb01_subnet_az" {
-#   description = "az for the content delivery public subnet 1"
-#   default     = "us-east-1a"
-# }
-
-# variable "lb02_subnet_az" {
-#   description = "az for the content delivery public subnet 2"
-#   default     = "us-east-1b"
-# }
-
-# variable "lb03_subnet_az" {
-#   description = "az for the content delivery public subnet 3"
-#   default     = "us-east-1d"
-# }
-
-# variable "ecr_repositories" {
-#   description = "(Optional) list of ECR repositories to create for use with ECS"
-#   type        = list(any)
-#   default     = []
-# }
-
-# variable "ecs" {
-#   description = "(Required) map of variables for ECS"
-#   type        = map(any)
-
-#   default = {
-#     //instance_type    = "c4.large"
-#     instance_type             = "t2.micro"
-#     min_size                  = 4
-#     max_size                  = 8
-#     desired_capacity          = 4
-#     health_check_type         = "EC2"
-#     health_check_grace_period = 300
-#   }
-# }
-
-# variable "api_flavor" {
-#   description = "ecs instance type"
-#   default     = "r3.large"
-# }
 
 variable "number_az" {
   type    = string

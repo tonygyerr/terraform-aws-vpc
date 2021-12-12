@@ -10,11 +10,11 @@ output "igw_id" {
   value = aws_internet_gateway.this.id
 }
 
-output "public_api_subnets" {
+output "public_subnets" {
   value = aws_subnet.public.*.id
 }
 
-output "private_api_subnets" {
+output "private_subnets" {
   value = aws_subnet.private.*.id
 }
 
@@ -26,7 +26,7 @@ output "private_elasticache_subnets" {
   value = aws_subnet.elasticache_private.*.id
 }
 
-output "api_security_group_id" {
+output "security_group_id" {
   value = aws_security_group.vpc.id
 }
 
