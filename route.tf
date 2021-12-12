@@ -41,8 +41,8 @@ resource "aws_route_table_association" "prv-assoc-db" {
   route_table_id = element(aws_route_table.private.*.id, count.index)
 }
 
-resource "aws_route_table_association" "prv-assoc-elasticache" {
-  count          = var.number_rt
-  subnet_id      = element(aws_subnet.elasticache_private.*.id, count.index)
-  route_table_id = element(aws_route_table.private.*.id, count.index)
-}
+# resource "aws_route_table_association" "prv-assoc-elasticache" {
+#   count          = var.number_rt
+#   subnet_id      = element(aws_subnet.elasticache_private.*.id, count.index)
+#   route_table_id = element(aws_route_table.private.*.id, count.index)
+# }

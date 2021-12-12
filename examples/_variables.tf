@@ -64,19 +64,9 @@ variable "aws_region" {
   default     = ""
 }
 
-# variable "default_vpc" {
-#   type    = string
-#   default = "default-api"
-# }
-
-# variable "azs" {
-#   type    = list(string)
-#   default = ["us-east-1a", "us-east-1b", "us-east-1d"]
-# }
-
 variable "name" {
   description = "The domain name to setup DHCP for"
-  default     = "api"
+  default     = ""
 }
 
 variable "domain_name" {
