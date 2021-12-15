@@ -6,54 +6,54 @@ resource "aws_security_group" "app" {
     create_before_destroy = true
   }
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = var.private_subnets
-  }
+  # ingress {
+  #   from_port   = 22
+  #   to_port     = 22
+  #   protocol    = "tcp"
+  #   cidr_blocks = var.private_subnets
+  # }
 
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = var.api_pub_subnets
+    cidr_blocks = [var.vpc_config.cidr]
   }
 
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = var.db_prv_subnets
-  }
+  # ingress {
+  #   from_port   = 3000
+  #   to_port     = 3000
+  #   protocol    = "tcp"
+  #   cidr_blocks = var.db_prv_subnets
+  # }
 
-  ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = var.db_prv_subnets
-  }
+  # ingress {
+  #   from_port   = 3306
+  #   to_port     = 3306
+  #   protocol    = "tcp"
+  #   cidr_blocks = var.db_prv_subnets
+  # }
 
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    cidr_blocks = var.db_prv_subnets
-  }
+  # ingress {
+  #   from_port   = 5432
+  #   to_port     = 5432
+  #   protocol    = "tcp"
+  #   cidr_blocks = var.db_prv_subnets
+  # }
 
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = var.private_subnets
-  }
+  # ingress {
+  #   from_port   = 8080
+  #   to_port     = 8080
+  #   protocol    = "tcp"
+  #   cidr_blocks = var.private_subnets
+  # }
 
-  ingress {
-    from_port   = 9000
-    to_port     = 9000
-    protocol    = "tcp"
-    cidr_blocks = var.private_subnets
-  }
+  # ingress {
+  #   from_port   = 9000
+  #   to_port     = 9000
+  #   protocol    = "tcp"
+  #   cidr_blocks = var.private_subnets
+  # }
 
   egress {
     from_port   = 0
@@ -61,7 +61,7 @@ resource "aws_security_group" "app" {
     protocol    = -1
     cidr_blocks = [var.open_cidr]
   }
-  vpc_id = aws_vpc.api-vpc.id
+  vpc_id = aws_vpc.this.id
 }
 
 resource "aws_security_group_rule" "app"{

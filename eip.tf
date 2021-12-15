@@ -1,4 +1,4 @@
-resource "aws_eip" "api-eip-lb-ngw" {
+resource "aws_eip" "this" {
   count = var.number_az
   vpc   = true
 

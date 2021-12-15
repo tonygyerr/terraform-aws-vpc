@@ -21,7 +21,7 @@ module "vpc" {
   vpn_config               = var.vpn_config
   region                   = var.aws_region
   environment              = var.environment
-  application              = var.application
+  application              = var.app_name
   enable_nat_gateway       = true
   single_nat_gateway       = true
   enable_vpn_gateway       = true
