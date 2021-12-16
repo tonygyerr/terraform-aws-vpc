@@ -7,7 +7,7 @@ resource "aws_vpc" "this" {
   tags = merge(
     data.null_data_source.merged_tags.outputs,
     map(
-      "Name", lookup(var.vpc_config, "app_name", "${var.app_name}-vpc")
+      "Name", lookup(var.vpc_config, "app_name", "${var.app_name}-${var.environment}-vpc")
     )
   )
 }
