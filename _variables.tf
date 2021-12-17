@@ -119,6 +119,7 @@ variable "vpn_id" {
 variable "module_config" {
   description = "Configuration options for the Module"
   type        = map(any)
+  default = {}
 }
 
 variable "vpn_config" {
@@ -158,7 +159,7 @@ variable "public_route_table_ids" {
 variable "public_eip_ngw_id" {
   description = "public eip for the nat gateway"
   type        = list(any)
-  default     = ["api-east-eip-ngw"]
+  default     = [""]
 }
 
 variable "vpn_dest_cidr_block" {
@@ -536,6 +537,12 @@ variable "monitoring_interval" {
 
 variable "monitoring_role_arn" {
   description = "The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to CloudWatch Logs. Must be specified if monitoring_interval is non-zero."
+  default     = ""
+}
+
+variable "lambda_role" {
+  description = "Name of the Lambda role"
+  type        = string
   default     = ""
 }
 
