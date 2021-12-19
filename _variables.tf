@@ -677,3 +677,13 @@ variable "profile" {
   description = "Enter name of profile"
   default     = ""
 }
+
+variable "moduleVersion" {
+  type        = string
+  default     = ""
+}
+
+variable "ssm_iam_instance_role" {
+  type        = string
+  default     = ""
+}
