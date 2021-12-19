@@ -221,27 +221,6 @@ variable "number_vpn_rt_propagation" {
   default = "1"
 }
 
-# variable "private_route_tables" {
-#   type    = list(any)
-#   default = ["prv-db01", "prv-db02", "prv-db03", "prv-ecs01", "prv-ecs02", "prv-ecs03", "prv-lb01", "prv-lb02", "prv-lb03"]
-# }
-
-# variable "public_route_tables" {
-#   type    = list(any)
-#   default = ["pub-ecs01", "pub-ecs02", "pub-ecs03"]
-# }
-
-# variable "vgw_ids" {
-#   type        = list(any)
-#   description = "list of virtual gateways for propagation"
-#   default     = []
-# }
-
-# variable "team" {
-#   type    = list(any)
-#   default = ["cloud"]
-# }
-
 variable "tags" {
   type        = map(any)
   description = "optional default tags"
@@ -469,14 +448,6 @@ variable "manage_default_vpc" {
   default     = "false"
 }
 
-
-/*
-variable "allocated_storage" {
-  description = "The allocated storage in gigabytes"
-  default     = ""
-}
-*/
-
 variable "default_vpc_enable_dns_hostnames" {
   type        = string
   description = "specify to enable default vpc dns hostnames"
@@ -699,5 +670,10 @@ variable "db_subnet_group_name" {
 variable "app_name" {
   type        = string
   description = "Application Name"
+  default     = ""
+}
+
+variable "profile" {
+  description = "Enter name of profile"
   default     = ""
 }

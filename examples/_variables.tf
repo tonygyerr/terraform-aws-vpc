@@ -147,3 +147,8 @@ variable "amount_private_lb_subnets" {
   type    = string
   default = null
 }
+
+variable "profile" {
+  description = "Enter name of profile"
+  default     = ""
+}
