@@ -19,7 +19,7 @@ data "null_data_source" "terraform_tags" {
     "heritage"      = "Terraform"
     "environment"   = data.null_data_source.environment.outputs["SDLC"]
     "module"        = "vpc"
-    "moduleVersion" = lookup(var.module_config, "moduleVersion")
+    # "moduleVersion" = lookup(var.module_config, "moduleVersion")
   }
 }
 
