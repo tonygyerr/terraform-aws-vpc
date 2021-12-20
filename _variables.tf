@@ -113,7 +113,7 @@ variable "vpc_ids" {
 }
 
 variable "vpn_id" {
-  default = "api-east-vpn"
+  default = ""
 }
 
 variable "module_config" {
@@ -353,11 +353,13 @@ variable "visibility" {
 }
 
 variable "environment" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "region" {
   type = string
+  default = ""
 }
 
 variable "cost_center" {
