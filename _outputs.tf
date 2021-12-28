@@ -22,6 +22,10 @@ output "private_db_subnets" {
   value = aws_subnet.db_private.*.id
 }
 
+output "private_elasticache_subnets" {
+  value = aws_subnet.elasticache_private.*.id
+}
+
 output "security_group_id" {
   value = aws_security_group.vpc.id
 }
