@@ -35,14 +35,14 @@ resource "aws_subnet" "db_private" {
   }
 }
 
-# resource "aws_subnet" "elasticache_private" {
-#   count                   = var.amount_elasticache_subnets
-#   cidr_block              = element(concat(var.elasticache_prv_subnets, [""]), count.index)
-#   vpc_id                  = aws_vpc.this.id
-#   availability_zone       = data.aws_availability_zones.main.names[count.index]
-#   map_public_ip_on_launch = false
+resource "aws_subnet" "elasticache_private" {
+  count                   = var.amount_elasticache_subnets
+  cidr_block              = element(concat(var.elasticache_prv_subnets, [""]), count.index)
+  vpc_id                  = aws_vpc.this.id
+  availability_zone       = data.aws_availability_zones.main.names[count.index]
+  map_public_ip_on_launch = false
 
-#   tags = {
-#     Name = "${var.app_name}-${var.environment}-elasticache-prv-${count.index}-subnet"
-#   }
-# }
+  tags = {
+    Name = "${var.app_name}-${var.environment}-elasticache-prv-${count.index}-subnet"
+  }
+}
