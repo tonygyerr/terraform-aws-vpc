@@ -1,5 +1,5 @@
 module "vpc" {
-  source                   = "git::https://github.com/tonygyerr/terraform-aws-vpc.git"
+  source                   = "git::hhttps://github.com/tonygyerr/terraform-aws-vpc.git"
   app_name                   = var.app_name
   azs                        = var.azs
   cidr                       = var.vpc_cidr
